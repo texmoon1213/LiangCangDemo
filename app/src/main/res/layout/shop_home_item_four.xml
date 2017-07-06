@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv1_shop_home_item_four"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv2_shop_home_item_four"
+            android:layout_width="230dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv3_shop_home_item_four"
+            android:layout_width="230dp"
+            android:layout_height="160dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/iv4_shop_home_item_four"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_weight="1"
+            android:scaleType="fitXY" />
+    </LinearLayout>
+</LinearLayout>

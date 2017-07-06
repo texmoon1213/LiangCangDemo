@@ -3,7 +3,6 @@ package com.example.administrator.liangcangdemo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -11,13 +10,7 @@ import com.bumptech.glide.Glide;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-        }
-    };
+    private Handler handler = new Handler();
     private ImageView splash_gif;
 
     @Override
@@ -33,6 +26,12 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
                 SplashActivity.this.finish();
             }
-        }, 6000);
+        }, 5000);
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        handler.removeCallbacksAndMessages(null);
     }
 }
