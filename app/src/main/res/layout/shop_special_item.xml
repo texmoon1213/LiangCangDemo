@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_shop_special_item"
@@ -9,9 +9,17 @@
         android:layout_height="140dp"
         android:scaleType="fitXY" />
 
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="140dp"
+        android:background="#44000000" />
+
     <TextView
         android:id="@+id/tv_shop_special_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:textColor="#ffffff" />
 </RelativeLayout>

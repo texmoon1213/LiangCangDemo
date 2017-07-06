@@ -13,6 +13,7 @@ import com.example.administrator.liangcangdemo.adapter.ShopSpecialRecycleAdapter
 import com.example.administrator.liangcangdemo.base.BaseFragment;
 import com.example.administrator.liangcangdemo.bean.ShopSpecialBean;
 import com.example.administrator.liangcangdemo.untils.ConstantUtils;
+import com.example.administrator.liangcangdemo.view.DividerItemDecoration;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 
@@ -31,8 +32,8 @@ import okhttp3.Response;
 public class SpecialFragment extends BaseFragment {
     @BindView(R.id.recycle_special_shop)
     RecyclerView recycleSpecialShop;
-    @BindView(R.id.refresh_home_shop)
-    MaterialRefreshLayout refreshHomeShop;
+    @BindView(R.id.refresh_special_shop)
+    MaterialRefreshLayout refreshSpecialShop;
     Unbinder unbinder;
 
     @Override
@@ -71,10 +72,13 @@ public class SpecialFragment extends BaseFragment {
             ShopSpecialRecycleAdapter adapter = new ShopSpecialRecycleAdapter(context, itemsBeen);
             recycleSpecialShop.setAdapter(adapter);
             recycleSpecialShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            recycleSpecialShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 
 
     @Override
