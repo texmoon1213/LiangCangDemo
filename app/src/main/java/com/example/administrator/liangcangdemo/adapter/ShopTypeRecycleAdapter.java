@@ -35,9 +35,17 @@ public class ShopTypeRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         TypeHoder typeHoder = (TypeHoder) holder;
         typeHoder.setData(datas.get(position));
+        typeHoder.ivShopTypeItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.OnItemClick(v, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -61,5 +69,15 @@ public class ShopTypeRecycleAdapter extends RecyclerView.Adapter {
                     .bitmapTransform(new RoundedCornersTransformation(context, 20, 10))
                     .into(ivShopTypeItem);
         }
+    }
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int position);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }

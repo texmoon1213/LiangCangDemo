@@ -1,5 +1,6 @@
 package com.example.administrator.liangcangdemo.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.example.administrator.liangcangdemo.Activity.TypeListActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.ShopTypeRecycleAdapter;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
@@ -75,6 +77,7 @@ public class TypeFragment extends BaseFragment {
 //            recycleTypeShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             recycleTypeShop.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
 //            recycleTypeShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
+            adapter.setOnItemClickListener(new TypeListener(itemsBeen));
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }
@@ -84,5 +87,22 @@ public class TypeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private class TypeListener implements ShopTypeRecycleAdapter.ItemClickListener {
+        private List<ShopTypeBean.DataBean.ItemsBean> itemsBean;
+
+        public TypeListener(List<ShopTypeBean.DataBean.ItemsBean> itemsBeen) {
+            this.itemsBean = itemsBeen;
+        }
+
+        @Override
+        public void OnItemClick(View v, int position) {
+
+            ShopTypeBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
+            Intent initent = new Intent(getContext(), TypeListActivity.class);
+            initent.putExtra("type_bean", itemsBean);
+            startActivity(initent);
+        }
     }
 }

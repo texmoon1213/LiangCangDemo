@@ -67,7 +67,6 @@ public class SpecialFragment extends BaseFragment {
         });
     }
 
-
     private void processData(String s) {
         ShopSpecialBean shopSpecialBean = JSON.parseObject(s, ShopSpecialBean.class);
         List<ShopSpecialBean.DataBean.ItemsBean> itemsBeen = shopSpecialBean.getData().getItems();

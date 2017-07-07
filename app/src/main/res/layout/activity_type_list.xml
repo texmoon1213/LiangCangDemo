@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.administrator.liangcangdemo.Activity.TypeListActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/title_bar" />
+
+    <LinearLayout
+        android:id="@+id/ll_typelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:text="测试筛选价格" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/tpye_order_arrow_down" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_type_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

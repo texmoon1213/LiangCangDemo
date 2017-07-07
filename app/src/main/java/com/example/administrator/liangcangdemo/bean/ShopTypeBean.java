@@ -1,12 +1,13 @@
 package com.example.administrator.liangcangdemo.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/7.
  */
 
-public class ShopTypeBean {
+public class ShopTypeBean implements Serializable {
 
     /**
      * meta : {"status":0,"server_time":"2017-07-06 23:37:43","account_id":0,"cost":0.01754903793335,"errdata":null,"errmsg":""}
@@ -42,7 +43,7 @@ public class ShopTypeBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable {
         /**
          * status : 0
          * server_time : 2017-07-06 23:37:43
@@ -108,7 +109,7 @@ public class ShopTypeBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * has_more : false
          * num_items : 1
@@ -143,7 +144,7 @@ public class ShopTypeBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable {
             /**
              * cat_id : 45
              * cat_name : 家居
@@ -208,7 +209,7 @@ public class ShopTypeBean {
                 this.second = second;
             }
 
-            public static class SecondBean {
+            public static class SecondBean implements Serializable {
                 /**
                  * cat_id : 46
                  * cat_name : 装饰摆件
