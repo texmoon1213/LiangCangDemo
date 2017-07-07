@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -34,21 +35,21 @@ public class ShopTypeListRecycleAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new TypeListHoder(View.inflate(context, R.layout.shop_type_list_item2, null));
+        return new TypeListHoder(View.inflate(context, R.layout.shop_type_list_item, null));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         TypeListHoder typeHoder = (TypeListHoder) holder;
         typeHoder.setData(datas.get(position));
-//        typeHoder.rlShopTypeListItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mItemClickListener != null) {
-//                    mItemClickListener.OnItemClick(v, position);
-//                }
-//            }
-//        });
+        typeHoder.rlShopTypeListItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.OnItemClick(v, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -63,12 +64,12 @@ public class ShopTypeListRecycleAdapter extends RecyclerView.Adapter {
         TextView tvNameItemListType;
         @BindView(R.id.tv_author_item_list_type)
         TextView tvAuthorItemListType;
-        //        @BindView(R.id.tv_like_item_list_type)
-//        TextView tvLikeItemListType;
+        @BindView(R.id.tv_like_item_list_type)
+        TextView tvLikeItemListType;
         @BindView(R.id.tv_price_item_list_type)
         TextView tvPriceItemListType;
-//        @BindView(R.id.rl_shop_type_list_item)
-//        RelativeLayout rlShopTypeListItem;
+        @BindView(R.id.rl_shop_type_list_item)
+        RelativeLayout rlShopTypeListItem;
 
         public TypeListHoder(View inflate) {
             super(inflate);
@@ -79,7 +80,7 @@ public class ShopTypeListRecycleAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(itemsBean.getGoods_image()).crossFade().error(R.drawable.lc_error).into(ivItemListType);
             tvNameItemListType.setText(itemsBean.getGoods_name());
             tvAuthorItemListType.setText(itemsBean.getBrand_info().getBrand_name());
-//            tvLikeItemListType.setText(itemsBean.getLike_count());
+            tvLikeItemListType.setText(itemsBean.getLike_count());
             tvPriceItemListType.setText("￥" + itemsBean.getPrice());
         }
     }

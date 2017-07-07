@@ -98,7 +98,7 @@ public class TypeListActivity extends AppCompatActivity {
             ShopTypeListRecycleAdapter adapter = new ShopTypeListRecycleAdapter(TypeListActivity.this, itemsBeen);
             recycleTypeList.setAdapter(adapter);
 
-            recycleTypeList.setLayoutManager(new GridLayoutManager(TypeListActivity.this, 2, LinearLayout.VERTICAL, false));
+            recycleTypeList.setLayoutManager(new GridLayoutManager(TypeListActivity.this, 2, GridLayoutManager.VERTICAL, false));
 //            recycleTypeList.addItemDecoration(new DividerGridItemDecorationHY(TypeListActivity.this));
             recycleTypeList.addItemDecoration(new ComprehensiveItemDecoration(15));//设置间距
             adapter.setOnItemClickListener(new TypeListener(itemsBeen));
