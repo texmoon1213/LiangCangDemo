@@ -1,31 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="40dp"
-    android:background="#000000"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:background="#000000">
 
     <ImageView
-        android:id="@+id/search_main_top"
+        android:id="@+id/search_titlebar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:paddingLeft="10dp"
         android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
 
-    <TextView
-        android:layout_width="0dp"
+    <ImageView
+        android:id="@+id/back_titlebar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10dp"
+        android:src="@drawable/back_special_webview"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="測試"
         android:textColor="#ffffff"
         android:textSize="20sp" />
 
     <ImageView
-        android:id="@+id/shopcar_main_top"
+        android:id="@+id/shopcar_titlebar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:paddingRight="10dp"
         android:src="@drawable/actionbar_navigation_cart" />
-</LinearLayout>
+</RelativeLayout>

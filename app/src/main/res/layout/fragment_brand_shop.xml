@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#2c3033"
     android:orientation="vertical">
 
     <com.cjj.MaterialRefreshLayout
-        android:id="@+id/refresh_type_shop"
+        android:id="@+id/refresh_brand_shop"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isLoadMore="false">
+        app:isLoadMore="true">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_type_shop"
+            android:id="@+id/recycle_brand_shop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical" />
     </com.cjj.MaterialRefreshLayout>
 </LinearLayout>

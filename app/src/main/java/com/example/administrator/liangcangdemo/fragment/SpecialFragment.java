@@ -1,5 +1,7 @@
 package com.example.administrator.liangcangdemo.fragment;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +10,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.example.administrator.liangcangdemo.Activity.SpecialWebviewActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.ShopSpecialRecycleAdapter;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
@@ -46,11 +49,11 @@ public class SpecialFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        getDataFromNet();
+        getDataFromNet(ConstantUtils.SHOP_SPECIAL);
     }
 
-    private void getDataFromNet() {
-        OkGo.<String>get(ConstantUtils.SHOP_SPECIAL).tag(this).execute(new StringCallback() {
+    private void getDataFromNet(String urlspecial) {
+        OkGo.<String>get(urlspecial).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 Log.e("TAG", "專題成功==" + s);
@@ -65,6 +68,7 @@ public class SpecialFragment extends BaseFragment {
         });
     }
 
+
     private void processData(String s) {
         ShopSpecialBean shopSpecialBean = JSON.parseObject(s, ShopSpecialBean.class);
         List<ShopSpecialBean.DataBean.ItemsBean> itemsBeen = shopSpecialBean.getData().getItems();
@@ -73,17 +77,33 @@ public class SpecialFragment extends BaseFragment {
             recycleSpecialShop.setAdapter(adapter);
             recycleSpecialShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             recycleSpecialShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
+            adapter.setOnItemClickListener(new SpecialListener(itemsBeen));
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }
     }
 
 
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+
+    private class SpecialListener implements ShopSpecialRecycleAdapter.ItemClickListener {
+        private List<ShopSpecialBean.DataBean.ItemsBean> itemsBean;
+
+        public SpecialListener(List<ShopSpecialBean.DataBean.ItemsBean> itemsBeen) {
+            this.itemsBean = itemsBeen;
+        }
+
+        @Override
+        public void OnItemClick(View v, int position) {
+            String url = itemsBean.get(position).getTopic_url();
+            Intent initent = new Intent(getContext(), SpecialWebviewActivity.class);
+            initent.setData(Uri.parse(url));
+            startActivity(initent);
+        }
     }
 }

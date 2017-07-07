@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.liangcangdemo.fragment.DarenFragment;
@@ -25,14 +27,37 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.search_main_top)
-    ImageView searchMainTop;
-    @BindView(R.id.shopcar_main_top)
-    ImageView shopcarMainTop;
+//    @BindView(R.id.search_main_top)
+//    ImageView searchMainTop;
+//    @BindView(R.id.shopcar_main_top)
+//    ImageView shopcarMainTop;
+
     @BindView(R.id.fl_main)
     FrameLayout flMain;
     @BindView(R.id.rg_main)
     RadioGroup rgMain;
+
+
+    @BindView(R.id.search_titlebar)
+    ImageView searchTitlebar;
+    @BindView(R.id.back_titlebar)
+    ImageView backTitlebar;
+    @BindView(R.id.tv_titlebar)
+    TextView tvTitlebar;
+    @BindView(R.id.shopcar_titlebar)
+    ImageView shopcarTitlebar;
+
+
+    @BindView(R.id.rb1_main)
+    RadioButton rb1Main;
+    @BindView(R.id.rb2_main)
+    RadioButton rb2Main;
+    @BindView(R.id.rb3_main)
+    RadioButton rb3Main;
+    @BindView(R.id.rb4_main)
+    RadioButton rb4Main;
+    @BindView(R.id.rb5_main)
+    RadioButton rb5Main;
     private ArrayList<Fragment> fragments;
     private int position = 0;
     private Fragment tempFragment;

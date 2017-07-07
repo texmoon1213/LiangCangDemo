@@ -1,8 +1,8 @@
 package com.example.administrator.liangcangdemo.fragment;
 
 import android.view.View;
-import android.widget.TextView;
 
+import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
 
 /**
@@ -12,8 +12,7 @@ import com.example.administrator.liangcangdemo.base.BaseFragment;
 public class GiftFragment extends BaseFragment {
     @Override
     public View initView() {
-        TextView textView = new TextView(context);
-        textView.setText("礼物");
-        return textView;
+        View inflate = View.inflate(context, R.layout.fragment_gift_shop, null);
+        return inflate;
     }
 }

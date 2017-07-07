@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv1_gift_home"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_7"
+        app:layout_heightPercent="40%" />
+
+    <ImageView
+        android:id="@+id/iv2_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/iv1_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_1"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+    <ImageView
+        android:id="@+id/iv3_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignTop="@id/iv2_gift_home"
+        android:layout_toRightOf="@id/iv2_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_2"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+    <ImageView
+        android:id="@+id/iv4_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignTop="@id/iv3_gift_home"
+        android:layout_toRightOf="@id/iv3_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_3"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+
+    <ImageView
+        android:id="@+id/iv5_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/iv2_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_4"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+
+    <ImageView
+        android:id="@+id/iv6_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignTop="@id/iv5_gift_home"
+        android:layout_toRightOf="@id/iv5_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_5"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+    <ImageView
+        android:id="@+id/iv7_gift_home"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_alignTop="@id/iv6_gift_home"
+        android:layout_toRightOf="@id/iv6_gift_home"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_present_6"
+        app:layout_heightPercent="25%"
+        app:layout_widthPercent="33.33333%" />
+
+    <TextView
+        android:id="@+id/tv_gift_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/iv5_gift_home"
+        android:background="@drawable/bg_gift_remind_entrance"
+        app:layout_heightPercent="10%" />
+</android.support.percent.PercentRelativeLayout>

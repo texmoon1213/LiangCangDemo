@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -39,9 +40,17 @@ public class ShopSpecialRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         SpecialHoder viewHolder = (SpecialHoder) holder;
         viewHolder.setData(datas.get(position));
+        viewHolder.rlShopSpecialItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.OnItemClick(v, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -54,15 +63,28 @@ public class ShopSpecialRecycleAdapter extends RecyclerView.Adapter {
         ImageView ivShopSpecialItem;
         @BindView(R.id.tv_shop_special_item)
         TextView tvShopSpecialItem;
+        @BindView(R.id.rl_shop_special_item)
+        RelativeLayout rlShopSpecialItem;
 
         public SpecialHoder(View inflate) {
             super(inflate);
             ButterKnife.bind(this, inflate);
         }
 
-        public void setData(ShopSpecialBean.DataBean.ItemsBean listBean) {
+        public void setData(final ShopSpecialBean.DataBean.ItemsBean listBean) {
             Glide.with(context).load(listBean.getCover_img_new()).crossFade().into(ivShopSpecialItem);
             tvShopSpecialItem.setText(listBean.getTopic_name());
         }
+    }
+
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int position);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }
