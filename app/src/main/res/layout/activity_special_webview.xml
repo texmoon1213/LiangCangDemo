@@ -10,28 +10,22 @@
         android:id="@+id/title"
         layout="@layout/title_bar" />
 
+
+    <ProgressBar
+        android:id="@+id/progressBar_webView_special"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="3dip"
+        android:layout_below="@id/title"
+        android:progressDrawable="@drawable/pg"
+        android:visibility="gone" />
+
     <WebView
         android:id="@+id/webView_special"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/title"></WebView>
+        android:layout_below="@id/progressBar_webView_special"></WebView>
 
-    <LinearLayout
-        android:id="@+id/ll_progressbar_special_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="正在加載" />
-    </LinearLayout>
 
 
 </RelativeLayout>

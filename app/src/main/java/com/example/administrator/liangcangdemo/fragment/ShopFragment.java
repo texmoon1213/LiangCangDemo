@@ -54,6 +54,9 @@ public class ShopFragment extends BaseFragment {
     public void initData() {
         super.initData();
         switchFragment();
+
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("商店");
     }
 
     private void switchFragment() {

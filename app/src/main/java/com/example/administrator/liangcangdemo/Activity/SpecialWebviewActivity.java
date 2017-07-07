@@ -4,11 +4,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.administrator.liangcangdemo.R;
@@ -22,16 +22,21 @@ public class SpecialWebviewActivity extends AppCompatActivity {
 
     @BindView(R.id.webView_special)
     WebView webViewSpecial;
-    @BindView(R.id.ll_progressbar_special_webview)
-    LinearLayout llProgressbarSpecialWebview;
+
     @BindView(R.id.search_titlebar)
     ImageView searchTitlebar;
+
     @BindView(R.id.back_titlebar)
     ImageView backTitlebar;
+
     @BindView(R.id.tv_titlebar)
     TextView tvTitlebar;
+
     @BindView(R.id.shopcar_titlebar)
     ImageView shopcarTitlebar;
+
+    @BindView(R.id.progressBar_webView_special)
+    ProgressBar progressBarWebViewSpecial;
     private WebSettings settings;
     private ShopSpecialBean.DataBean.ItemsBean special_bean;
 
@@ -73,11 +78,23 @@ public class SpecialWebviewActivity extends AppCompatActivity {
         settings.setUseWideViewPort(true);//双击页面变大变小
         settings.setBuiltInZoomControls(true);//添加变大变小按钮
         webViewSpecial.setBackgroundColor(Color.parseColor("#CCEED0"));//添加背景顔色，也可以用get获取js頁面传过来的背景
-        webViewSpecial.setWebViewClient(new WebViewClient() {
+        //这个可以省去
+//        webViewSpecial.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//            }
+//        });
+        webViewSpecial.setWebChromeClient(new WebChromeClient() {
             @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                llProgressbarSpecialWebview.setVisibility(View.GONE);
+            public void onProgressChanged(WebView view, int newProgress) {
+                super.onProgressChanged(view, newProgress);
+                if (newProgress == 100) {
+                    progressBarWebViewSpecial.setVisibility(View.GONE);//加载完网页进度条消失
+                } else {
+                    progressBarWebViewSpecial.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                    progressBarWebViewSpecial.setProgress(newProgress);//设置进度值
+                }
             }
         });
         webViewSpecial.loadUrl(special_bean.getTopic_url());
