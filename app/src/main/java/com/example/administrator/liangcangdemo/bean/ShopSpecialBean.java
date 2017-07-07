@@ -1,12 +1,13 @@
 package com.example.administrator.liangcangdemo.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/6.
  */
 
-public class ShopSpecialBean {
+public class ShopSpecialBean implements Serializable {
 
     /**
      * meta : {"status":0,"server_time":"2017-07-06 20:05:22","account_id":0,"cost":0.052471160888672,"errdata":null,"errmsg":""}
@@ -42,7 +43,7 @@ public class ShopSpecialBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable {
         /**
          * status : 0
          * server_time : 2017-07-06 20:05:22
@@ -108,7 +109,7 @@ public class ShopSpecialBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * has_more : true
          * num_items : 142
@@ -143,7 +144,7 @@ public class ShopSpecialBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable {
             /**
              * taid : 1926
              * topic_name : 想象力比知识重要，爱因斯坦童年最爱玩的积木

@@ -1,7 +1,6 @@
 package com.example.administrator.liangcangdemo.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -100,9 +99,11 @@ public class SpecialFragment extends BaseFragment {
 
         @Override
         public void OnItemClick(View v, int position) {
-            String url = itemsBean.get(position).getTopic_url();
+//            String url = itemsBean.get(position).getTopic_url();
+            ShopSpecialBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
             Intent initent = new Intent(getContext(), SpecialWebviewActivity.class);
-            initent.setData(Uri.parse(url));
+//            initent.setData(Uri.parse(url));
+            initent.putExtra("special_bean", itemsBean);
             startActivity(initent);
         }
     }
