@@ -101,7 +101,6 @@ public class SpecialFragment extends BaseFragment {
 //            String url = itemsBean.get(position).getTopic_url();
             ShopSpecialBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
             Intent initent = new Intent(getContext(), SpecialWebviewActivity.class);
-//            initent.setData(Uri.parse(url));
             initent.putExtra("special_bean", itemsBean);
             startActivity(initent);
         }

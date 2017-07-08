@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Administrator on 2017/7/7.
  */
 
-public class ShopTypeListBean implements Serializable{
+public class ShopTypeListBean implements Serializable {
 
     /**
      * meta : {"status":0,"server_time":"2017-07-07 16:42:04","account_id":0,"cost":0.0033352375030518,"errdata":null,"errmsg":""}
@@ -43,7 +43,7 @@ public class ShopTypeListBean implements Serializable{
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable {
         /**
          * status : 0
          * server_time : 2017-07-07 16:42:04
@@ -299,7 +299,7 @@ public class ShopTypeListBean implements Serializable{
                 this.brand_info = brand_info;
             }
 
-            public static class BrandInfoBean {
+            public static class BrandInfoBean implements Serializable {
                 /**
                  * brand_id : 724
                  * brand_name : LEAP Edition

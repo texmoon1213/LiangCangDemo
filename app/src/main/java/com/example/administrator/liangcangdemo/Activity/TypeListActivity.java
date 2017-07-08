@@ -92,13 +92,13 @@ public class TypeListActivity extends AppCompatActivity {
     }
 
     private void processData(String s) {
-        ShopTypeListBean shopSpecialBean = JSON.parseObject(s, ShopTypeListBean.class);
-        List<ShopTypeListBean.DataBean.ItemsBean> itemsBeen = shopSpecialBean.getData().getItems();
+        ShopTypeListBean shopTypeListBean = JSON.parseObject(s, ShopTypeListBean.class);
+        List<ShopTypeListBean.DataBean.ItemsBean> itemsBeen = shopTypeListBean.getData().getItems();
         if (itemsBeen != null && itemsBeen.size() > 0) {
             ShopTypeListRecycleAdapter adapter = new ShopTypeListRecycleAdapter(TypeListActivity.this, itemsBeen);
             recycleTypeList.setAdapter(adapter);
 
-            recycleTypeList.setLayoutManager(new GridLayoutManager(TypeListActivity.this, 2, GridLayoutManager.VERTICAL, false));
+            recycleTypeList.setLayoutManager(new GridLayoutManager(TypeListActivity.this, 2, LinearLayout.VERTICAL, false));
 //            recycleTypeList.addItemDecoration(new DividerGridItemDecorationHY(TypeListActivity.this));
             recycleTypeList.addItemDecoration(new ComprehensiveItemDecoration(15));//设置间距
             adapter.setOnItemClickListener(new TypeListener(itemsBeen));
@@ -119,7 +119,7 @@ public class TypeListActivity extends AppCompatActivity {
         public void OnItemClick(View v, int position) {
             ShopTypeListBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
             Intent initent = new Intent(TypeListActivity.this, TypeDetialActivity.class);
-//            initent.putExtra("type_list_bean", itemsBean);
+            initent.putExtra("type_list_bean", itemsBean);
             startActivity(initent);
         }
     }

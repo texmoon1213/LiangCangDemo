@@ -1,13 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBlack"
     tools:context="com.example.administrator.liangcangdemo.Activity.TypeDetialActivity">
 
+
+    <com.youth.banner.Banner
+        android:id="@+id/banner_item_detail"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"></com.youth.banner.Banner>
+
     <TextView
+        android:id="@+id/tv_owner_name_item_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="詳情页面" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_below="@id/banner_item_detail"
+        android:paddingTop="15dp"
+        android:text="owner_name"
+        android:textColor="@color/colorWhite"
+        android:textSize="23sp" />
+
+    <TextView
+        android:id="@+id/tv_goods_name_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_owner_name_item_detail"
+        android:paddingTop="10dp"
+        android:text="goods_name"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tv_promotion_note_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_goods_name_item_detail"
+        android:paddingTop="10dp"
+        android:text="promotion_note"
+        android:textColor="@color/zhuti_shenlan"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/tv_discount_price_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_promotion_note_item_detail"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:text="998"
+        android:textColor="@color/zhuti_shenlan"
+        android:textSize="23sp" />
+    <!--喜欢-->
+    <TextView
+        android:id="@+id/tv_like_count_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tv_owner_name_item_detail"
+        android:drawableTop="@drawable/detail_like_not_big"
+        android:paddingRight="10dp"
+        android:text="123"
+        android:textColor="@color/zhuti_shenlan" />
+
+    <ImageView
+        android:id="@+id/iv_share_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_like_count_item_detail"
+        android:paddingRight="10dp"
+        android:src="@drawable/share_detail_shopgood" />
+
+
+    <!--头-->
+    <ImageView
+        android:id="@+id/iv_back_item_detail"
+        android:layout_width="26dp"
+        android:layout_height="25dp"
+        android:paddingLeft="5dp"
+        android:paddingTop="5dp"
+        android:src="@drawable/back_item_detail__gray" />
+
+    <ImageView
+        android:id="@+id/iv_cart_item_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/cart_item_deatail_gray" />
+</RelativeLayout>

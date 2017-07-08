@@ -39,4 +39,5 @@ dependencies {
     compile 'com.android.support:percent:25.3.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.youth.banner:banner:1.4.9'//banner
 }
