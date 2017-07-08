@@ -95,7 +95,7 @@ public class TypeDetialActivity extends AppCompatActivity {
         tvPromotionNoteItemDetail.setText(items.getPromotion_note());
         tvLikeCountItemDetail.setText(items.getLike_count());
         String price = TextUtils.isEmpty(items.getDiscount_price()) ? items.getPrice() : items.getDiscount_price();
-        tvDiscountPriceItemDetail.setText(price);
+        tvDiscountPriceItemDetail.setText("￥" + price);
     }
 
     private void initBanner() {

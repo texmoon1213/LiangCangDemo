@@ -6,5 +6,8 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="zhuti_shenlan">#3A668e</color>
+    <color name="zhuti_huise">#2c2f34</color>
+    <color name="text_huise">#909090</color>
+
 
 </resources>
