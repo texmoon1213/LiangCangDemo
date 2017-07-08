@@ -48,6 +48,10 @@ public class TypeDetialActivity extends AppCompatActivity {
     TextView tvLikeCountItemDetail;
     @BindView(R.id.iv_share_item_detail)
     ImageView ivShareItemDetail;
+    @BindView(R.id.iv_brandlogo_detail)
+    ImageView ivBrandlogoDetail;
+    @BindView(R.id.tv_brandname_detail)
+    TextView tvBrandnameDetail;
     private String detailUrl;
     private ShopDetailBean.DataBean.ItemsBean items;
 
@@ -58,7 +62,6 @@ public class TypeDetialActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initData();
     }
-
 
     private void initData() {
         getDataFromNet();
@@ -96,6 +99,8 @@ public class TypeDetialActivity extends AppCompatActivity {
         tvLikeCountItemDetail.setText(items.getLike_count());
         String price = TextUtils.isEmpty(items.getDiscount_price()) ? items.getPrice() : items.getDiscount_price();
         tvDiscountPriceItemDetail.setText("￥" + price);
+        Glide.with(TypeDetialActivity.this).load(items.getBrand_info().getBrand_logo()).crossFade().into(ivBrandlogoDetail);
+        tvBrandnameDetail.setText(items.getBrand_info().getBrand_name());
     }
 
     private void initBanner() {
