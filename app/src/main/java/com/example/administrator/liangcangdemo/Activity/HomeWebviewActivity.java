@@ -19,7 +19,7 @@ import com.example.administrator.liangcangdemo.untils.DensityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SpecialWebviewActivity extends AppCompatActivity {
+public class HomeWebviewActivity extends AppCompatActivity {
 
     @BindView(R.id.webView_special)
     WebView webViewSpecial;
@@ -41,6 +41,8 @@ public class SpecialWebviewActivity extends AppCompatActivity {
     private WebSettings settings;
     private ShopSpecialBean.DataBean.ItemsBean special_bean;
     private ShopHomeBean.DataBean.ItemsBean.ListBean home_bean;
+    private String onte2four;
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +65,7 @@ public class SpecialWebviewActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        tvTitlebar.setText(special_bean.getTopic_name());
-        tvTitlebar.setTextSize(DensityUtil.px2sp(SpecialWebviewActivity.this, 60));
+        tvTitlebar.setTextSize(DensityUtil.px2sp(HomeWebviewActivity.this, 60));
         searchTitlebar.setVisibility(View.GONE);
         backTitlebar.setVisibility(View.VISIBLE);
         shopcarTitlebar.setVisibility(View.GONE);
@@ -72,7 +73,8 @@ public class SpecialWebviewActivity extends AppCompatActivity {
 
     private void initData() {
 //        String from = getIntent().getStringExtra("from");
-        special_bean = (ShopSpecialBean.DataBean.ItemsBean) getIntent().getSerializableExtra("special_bean");
+        home_bean = (ShopHomeBean.DataBean.ItemsBean.ListBean) getIntent().getSerializableExtra("home_bean");
+        onte2four = getIntent().getStringExtra("one2four");
     }
 
     private void initWebView() {
@@ -100,6 +102,24 @@ public class SpecialWebviewActivity extends AppCompatActivity {
                 }
             }
         });
-        webViewSpecial.loadUrl(special_bean.getTopic_url());
+        switch (onte2four) {
+            case "one":
+                tvTitlebar.setText(home_bean.getOne().getTopic_name());
+                url = home_bean.getOne().getTopic_url();
+                break;
+            case "two":
+                tvTitlebar.setText(home_bean.getTwo().getTopic_name());
+                url = home_bean.getTwo().getTopic_url();
+                break;
+            case "three":
+                tvTitlebar.setText(home_bean.getThree().getTopic_name());
+                url = home_bean.getThree().getTopic_url();
+                break;
+            case "four":
+                tvTitlebar.setText(home_bean.getFour().getTopic_name());
+                url = home_bean.getFour().getTopic_url();
+                break;
+        }
+        webViewSpecial.loadUrl(url);
     }
 }

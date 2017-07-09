@@ -23,7 +23,8 @@
         <activity android:name=".SplashActivity" />
         <activity android:name=".Activity.SpecialWebviewActivity" />
         <activity android:name=".Activity.TypeListActivity" />
-        <activity android:name=".Activity.TypeDetialActivity"></activity>
+        <activity android:name=".Activity.TypeDetialActivity" />
+        <activity android:name=".Activity.HomeWebviewActivity"></activity>
     </application>
 
 </manifest>

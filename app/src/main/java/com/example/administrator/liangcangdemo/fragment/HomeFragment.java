@@ -1,5 +1,6 @@
 package com.example.administrator.liangcangdemo.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.example.administrator.liangcangdemo.Activity.HomeWebviewActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.ShopHomeRecycleAdapter;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
@@ -72,6 +74,7 @@ public class HomeFragment extends BaseFragment {
             ShopHomeRecycleAdapter adapter = new ShopHomeRecycleAdapter(context, listBeen);
             recycleHomeShop.setAdapter(adapter);
             recycleHomeShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+            adapter.setOnItemClickListener(new HomeListener(listBeen));
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }
@@ -82,5 +85,41 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    private class HomeListener implements ShopHomeRecycleAdapter.ItemClickListener {
+
+        private List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBean;
+        private String url;
+
+        public HomeListener(List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBeen) {
+            this.listBean = listBeen;
+        }
+
+        @Override
+        public void OnItemClick(View v, int i, String position) {
+            ShopHomeBean.DataBean.ItemsBean.ListBean itemsBean = this.listBean.get(i);
+            Intent initent = new Intent(getContext(), HomeWebviewActivity.class);
+            initent.putExtra("home_bean", itemsBean);
+            initent.putExtra("one2four", position);
+            initent.putExtra("from", "home_bean");
+//
+//            switch (position) {
+//                case "one":
+//                    url = itemsBean.getOne().getTopic_url();
+//                    break;
+//                case "two":
+//                    url = itemsBean.getTwo().getTopic_url();
+//                    break;
+//                case "three":
+//                    url = itemsBean.getThree().getTopic_url();
+//                    break;
+//                case "four":
+//                    url = itemsBean.getFour().getTopic_url();
+//                    break;
+//            }
+//            Log.e("H", "地址==" + url);
+            startActivity(initent);
+        }
     }
 }

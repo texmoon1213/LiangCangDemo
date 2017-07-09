@@ -102,6 +102,7 @@ public class SpecialFragment extends BaseFragment {
             ShopSpecialBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
             Intent initent = new Intent(getContext(), SpecialWebviewActivity.class);
             initent.putExtra("special_bean", itemsBean);
+            initent.putExtra("from", "special_bean");
             startActivity(initent);
         }
     }

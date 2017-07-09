@@ -71,16 +71,72 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == TYPE_ONE) {
             OneHoder videoHoder = (OneHoder) holder;
             videoHoder.setData(datas.get(position));
+            videoHoder.ivShopHomeItemOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "one");
+                    }
+                }
+            });
         } else if (getItemViewType(position) == TYPE_TWO) {
             TwoHoder imageHoder = (TwoHoder) holder;
             imageHoder.setData(datas.get(position));
+            imageHoder.iv1ShopHomeItemTwo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "one");
+                    }
+                }
+            });
+            imageHoder.iv2ShopHomeItemTwo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "two");
+                    }
+                }
+            });
         } else if (getItemViewType(position) == TYPE_FOUR) {
             FourHoder textHoder = (FourHoder) holder;
             textHoder.setData(datas.get(position));
+            textHoder.iv1ShopHomeItemFour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "one");
+                    }
+                }
+            });
+            textHoder.iv2ShopHomeItemFour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "two");
+                    }
+                }
+            });
+            textHoder.iv3ShopHomeItemFour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "three");
+                    }
+                }
+            });
+            textHoder.iv4ShopHomeItemFour.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "four");
+                    }
+                }
+            });
         }
     }
 
@@ -88,6 +144,7 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return datas == null ? 0 : datas.size();
     }
+
 
     protected class OneHoder extends RecyclerView.ViewHolder {
         @BindView(R.id.iv_shop_home_item_one)
@@ -145,5 +202,15 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(listBean.getFour().getPic_url()).error(R.drawable.daren).into(iv4ShopHomeItemFour);
 
         }
+    }
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int i, String position);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }
