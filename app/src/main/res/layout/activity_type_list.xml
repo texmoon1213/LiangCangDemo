@@ -36,5 +36,7 @@
         android:id="@+id/recycle_type_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#000000"></android.support.v7.widget.RecyclerView>
+        android:background="#000000">
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingBottom="2dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2.25dp"
+        android:layout_alignParentTop="true"
+        android:background="#fa7829" />
+
+    <TextView
+        android:id="@+id/pop_all"
+        style="@style/pop_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="全部" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_line" />
+
+    <TextView
+        android:id="@+id/pop_200"
+        style="@style/pop_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="0-200" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <TextView
+        android:id="@+id/pop_500"
+        style="@style/pop_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="201-500" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_line" />
+
+    <TextView
+        android:id="@+id/pop_1000"
+        style="@style/pop_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="501-1000" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/list_line" />
+
+    <TextView
+        android:id="@+id/pop_3000"
+        style="@style/pop_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1001-3000" />
+
+</LinearLayout>
