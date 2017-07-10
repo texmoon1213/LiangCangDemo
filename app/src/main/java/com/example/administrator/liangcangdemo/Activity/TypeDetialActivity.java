@@ -95,9 +95,13 @@ public class TypeDetialActivity extends AppCompatActivity {
                 if (checkedId == R.id.rb_detail_left) {
                     llDetailLeft.setVisibility(View.VISIBLE);
                     llDetailRight.setVisibility(View.GONE);
+                    rbDetailRight.setBackgroundColor(Color.BLACK);
+                    rbDetailLeft.setBackgroundColor(Color.GRAY);
                 } else if (checkedId == R.id.rb_detail_right) {
                     llDetailLeft.setVisibility(View.GONE);
                     llDetailRight.setVisibility(View.VISIBLE);
+                    rbDetailLeft.setBackgroundColor(Color.BLACK);
+                    rbDetailRight.setBackgroundColor(Color.GRAY);
                 }
             }
         });
@@ -156,6 +160,8 @@ public class TypeDetialActivity extends AppCompatActivity {
         Glide.with(TypeDetialActivity.this).load(items.getBrand_info().getBrand_logo()).crossFade().into(ivBrandlogoDetail);
         tvBrandnameDetail.setText(items.getBrand_info().getBrand_name());
         llDetailRight.setVisibility(View.INVISIBLE);
+        rbDetailLeft.setBackgroundColor(Color.GRAY);
+
         tvDetailRight.setText(items.getGood_guide().getContent());
         List<ShopDetailBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = items.getGoods_info();
 

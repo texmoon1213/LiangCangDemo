@@ -1,6 +1,7 @@
 package com.example.administrator.liangcangdemo.Activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -80,9 +81,13 @@ public class BrandDetailActivity extends AppCompatActivity {
                 if (checkedId == R.id.rb_brand_left) {
                     tvBrandDesc.setVisibility(View.VISIBLE);
                     recycleviewBrandGoodinfo.setVisibility(View.GONE);
+                    rbBrandLeft.setBackgroundColor(Color.GRAY);
+                    rbBrandRight.setBackgroundColor(Color.BLACK);
                 } else if (checkedId == R.id.rb_brand_right) {
                     tvBrandDesc.setVisibility(View.GONE);
                     recycleviewBrandGoodinfo.setVisibility(View.VISIBLE);
+                    rbBrandRight.setBackgroundColor(Color.GRAY);
+                    rbBrandLeft.setBackgroundColor(Color.BLACK);
                 }
             }
         });
@@ -135,6 +140,7 @@ public class BrandDetailActivity extends AppCompatActivity {
         searchTitlebar.setVisibility(View.INVISIBLE);
         shopcarTitlebar.setVisibility(View.INVISIBLE);
         recycleviewBrandGoodinfo.setVisibility(View.GONE);
+        rbBrandLeft.setBackgroundColor(Color.GRAY);
     }
 
 

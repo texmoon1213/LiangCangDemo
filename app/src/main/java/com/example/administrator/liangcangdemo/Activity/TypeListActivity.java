@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,15 +112,19 @@ public class TypeListActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void initData() {
-
-        type_bean = (ShopTypeBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_bean");
-        String cat_id = type_bean.getCat_id();
-        int length = cat_id.length();
-        //拿到联网请求数据的url
-        if (length == 2) {
-            itemurl = ConstantUtils.SHOP_TYPE_START + "00" + cat_id + ConstantUtils.SHOP_TYPE_END;
-        } else if (length == 3) {
-            itemurl = ConstantUtils.SHOP_TYPE_START + "0" + cat_id + ConstantUtils.SHOP_TYPE_END;
+        String fromgift = getIntent().getStringExtra("fromgift");
+        if (!TextUtils.isEmpty(fromgift)) {
+            itemurl = fromgift;
+        } else {
+            type_bean = (ShopTypeBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_bean");
+            String cat_id = type_bean.getCat_id();
+            int length = cat_id.length();
+            //拿到联网请求数据的url
+            if (length == 2) {
+                itemurl = ConstantUtils.SHOP_TYPE_START + "00" + cat_id + ConstantUtils.SHOP_TYPE_END;
+            } else if (length == 3) {
+                itemurl = ConstantUtils.SHOP_TYPE_START + "0" + cat_id + ConstantUtils.SHOP_TYPE_END;
+            }
         }
         getDataFromNet();
     }
