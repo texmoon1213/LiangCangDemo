@@ -40,7 +40,7 @@ public class SpecialWebviewActivity extends AppCompatActivity {
     ProgressBar progressBarWebViewSpecial;
     private WebSettings settings;
     private ShopSpecialBean.DataBean.ItemsBean special_bean;
-    private ShopHomeBean.DataBean.ItemsBean.ListBean home_bean;
+    private ShopHomeBean.DataBean.ItemsBean.ListBeanX home_bean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

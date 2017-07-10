@@ -4,11 +4,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.example.administrator.liangcangdemo.MainActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.MsgRecycleAdapter;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
@@ -29,14 +28,6 @@ import okhttp3.Response;
  */
 
 public class MsgFragment extends BaseFragment {
-    @BindView(R.id.search_titlebar)
-    ImageView searchTitlebar;
-    @BindView(R.id.back_titlebar)
-    ImageView backTitlebar;
-    @BindView(R.id.tv_titlebar)
-    TextView tvTitlebar;
-    @BindView(R.id.shopcar_titlebar)
-    ImageView shopcarTitlebar;
     @BindView(R.id.recycle_msg)
     RecyclerView recycleMsg;
     @BindView(R.id.refresh_msg)
@@ -47,10 +38,10 @@ public class MsgFragment extends BaseFragment {
     public View initView() {
         View view = View.inflate(context, R.layout.fragment_msg, null);
         unbinder = ButterKnife.bind(this, view);
-        tvTitlebar.setText("杂志");
-        backTitlebar.setVisibility(View.GONE);
-        searchTitlebar.setVisibility(View.GONE);
-        shopcarTitlebar.setVisibility(View.GONE);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("杂志");
+        activity.getBackTitlebar().setVisibility(View.GONE);
+        activity.getSearchTitlebar().setVisibility(View.GONE);
         return view;
     }
 

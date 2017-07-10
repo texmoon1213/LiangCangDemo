@@ -29,26 +29,28 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
 
 
     private Context context;
-    private List<ShopHomeBean.DataBean.ItemsBean.ListBean> datas;
+    private List<ShopHomeBean.DataBean.ItemsBean.ListBeanX> datas;
 
     @Override
     public int getItemViewType(int position) {
         int itemViewType = -1;
         //根据位置，从列表中得到一个数据对象
-        ShopHomeBean.DataBean.ItemsBean.ListBean listBean = datas.get(position);
-        String type = listBean.getHome_type();//得到类型
+        ShopHomeBean.DataBean.ItemsBean.ListBeanX listBean = datas.get(position);
+        int type = listBean.getHome_type();//得到类型
 
-        if ("1".equals(type)) {
+        if (1 == type) {
             itemViewType = TYPE_ONE;
-        } else if ("2".equals(type)) {
+        } else if (2 == type) {
             itemViewType = TYPE_TWO;
-        } else if ("4".equals(type)) {
+        } else if (4 == type) {
             itemViewType = TYPE_FOUR;
+        } else if (6 == type) {
+            itemViewType = 6;
         }
         return itemViewType;
     }
 
-    public ShopHomeRecycleAdapter(Context context, List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBeen) {
+    public ShopHomeRecycleAdapter(Context context, List<ShopHomeBean.DataBean.ItemsBean.ListBeanX> listBeen) {
         this.context = context;
         this.datas = listBeen;
     }
@@ -57,15 +59,19 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
         switch (viewType) {
-            case TYPE_ONE://视频
+            case TYPE_ONE://1
                 viewHolder = new OneHoder(View.inflate(context, R.layout.shop_home_item_one, null));
                 break;
-            case TYPE_TWO://图片
+            case TYPE_TWO://2
                 viewHolder = new TwoHoder(View.inflate(context, R.layout.shop_home_item_two, null));
                 break;
-            case TYPE_FOUR://文字
+            case TYPE_FOUR://4
                 viewHolder = new FourHoder(View.inflate(context, R.layout.shop_home_item_four, null));
                 break;
+            case 6://1进入商城
+                viewHolder = new SixHoder(View.inflate(context, R.layout.shop_home_item_one, null));
+                break;
+
         }
         return viewHolder;
     }
@@ -137,6 +143,17 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
                     }
                 }
             });
+        } else if (getItemViewType(position) == 6) {
+            SixHoder videoHoder = (SixHoder) holder;
+            videoHoder.setData(datas.get(position));
+            videoHoder.ivShopHomeItemOne.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "one");
+                    }
+                }
+            });
         }
     }
 
@@ -155,7 +172,7 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, inflate);
         }
 
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBeanX listBean) {
             Glide.with(context).load(listBean.getOne().getPic_url()).crossFade().into(ivShopHomeItemOne);
         }
     }
@@ -171,7 +188,7 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
             Log.e("TAG", "TwoHoder");
         }
 
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBeanX listBean) {
             Log.e("TAG", "TwoHoder.setData");
             Glide.with(context).load(listBean.getOne().getPic_url()).error(R.drawable.daren).into(iv1ShopHomeItemTwo);
             Glide.with(context).load(listBean.getTwo().getPic_url()).error(R.drawable.daren).into(iv2ShopHomeItemTwo);
@@ -193,7 +210,7 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, inflate);
         }
 
-        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBean listBean) {
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBeanX listBean) {
 //            text.setText(listBean.getOne().getTopic_name() + ",\n" + listBean.getTwo().getTopic_name() + ",\n"
 //                    + listBean.getThree().getTopic_name() + ",\n" + listBean.getFour().getTopic_name());
             Glide.with(context).load(listBean.getOne().getPic_url()).error(R.drawable.daren).into(iv1ShopHomeItemFour);
@@ -201,6 +218,20 @@ public class ShopHomeRecycleAdapter extends RecyclerView.Adapter {
             Glide.with(context).load(listBean.getThree().getPic_url()).error(R.drawable.daren).into(iv3ShopHomeItemFour);
             Glide.with(context).load(listBean.getFour().getPic_url()).error(R.drawable.daren).into(iv4ShopHomeItemFour);
 
+        }
+    }
+
+    protected class SixHoder extends RecyclerView.ViewHolder {
+        @BindView(R.id.iv_shop_home_item_one)
+        ImageView ivShopHomeItemOne;
+
+        public SixHoder(View inflate) {
+            super(inflate);
+            ButterKnife.bind(this, inflate);
+        }
+
+        public void setData(ShopHomeBean.DataBean.ItemsBean.ListBeanX listBean) {
+            Glide.with(context).load(listBean.getPic_url()).into(ivShopHomeItemOne);
         }
     }
 

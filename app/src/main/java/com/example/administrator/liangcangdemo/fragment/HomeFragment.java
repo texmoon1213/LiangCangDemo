@@ -69,7 +69,9 @@ public class HomeFragment extends BaseFragment {
 
     private void processData(String s) {
         ShopHomeBean shopHomeBean = JSON.parseObject(s, ShopHomeBean.class);
-        List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBeen = shopHomeBean.getData().getItems().getList();
+
+//        List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBeen = shopHomeBean.getData().getItems().getList();
+        List<ShopHomeBean.DataBean.ItemsBean.ListBeanX> listBeen = shopHomeBean.getData().getItems().getList();
         if (listBeen != null && listBeen.size() > 0) {
             ShopHomeRecycleAdapter adapter = new ShopHomeRecycleAdapter(context, listBeen);
             recycleHomeShop.setAdapter(adapter);
@@ -89,18 +91,19 @@ public class HomeFragment extends BaseFragment {
 
     private class HomeListener implements ShopHomeRecycleAdapter.ItemClickListener {
 
-        private List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBean;
+        private List<ShopHomeBean.DataBean.ItemsBean.ListBeanX> listBean;
         private String url;
 
-        public HomeListener(List<ShopHomeBean.DataBean.ItemsBean.ListBean> listBeen) {
+        public HomeListener(List<ShopHomeBean.DataBean.ItemsBean.ListBeanX> listBeen) {
             this.listBean = listBeen;
         }
 
         @Override
         public void OnItemClick(View v, int i, String position) {
-            ShopHomeBean.DataBean.ItemsBean.ListBean itemsBean = this.listBean.get(i);
+//            ShopHomeBean.DataBean.ItemsBean.ListBean itemsBean = this.listBean.get(i);
+            ShopHomeBean.DataBean.ItemsBean.ListBeanX listBeanX = this.listBean.get(i);
             Intent initent = new Intent(getContext(), HomeWebviewActivity.class);
-            initent.putExtra("home_bean", itemsBean);
+            initent.putExtra("home_bean", listBeanX);
             initent.putExtra("one2four", position);
             initent.putExtra("from", "home_bean");
 //

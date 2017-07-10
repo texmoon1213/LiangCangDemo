@@ -54,9 +54,23 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rb2Main;
     @BindView(R.id.rb3_main)
     RadioButton rb3Main;
+    @BindView(R.id.menu_titlebar)
+    ImageView menuTitlebar;
 
     public TextView getTvTitlebar() {
         return tvTitlebar;
+    }
+
+    public ImageView getMenuTitlebar() {
+        return menuTitlebar;
+    }
+
+    public ImageView getSearchTitlebar() {
+        return searchTitlebar;
+    }
+
+    public ImageView getBackTitlebar() {
+        return backTitlebar;
     }
 
     @BindView(R.id.rb4_main)

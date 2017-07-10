@@ -38,4 +38,14 @@
         android:layout_centerVertical="true"
         android:paddingRight="10dp"
         android:src="@drawable/actionbar_navigation_cart" />
+
+    <ImageView
+        android:id="@+id/menu_titlebar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingRight="10dp"
+        android:src="@drawable/menu_daren"
+        android:visibility="gone" />
 </RelativeLayout>

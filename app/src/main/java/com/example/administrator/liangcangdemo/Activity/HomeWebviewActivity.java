@@ -40,7 +40,7 @@ public class HomeWebviewActivity extends AppCompatActivity {
     ProgressBar progressBarWebViewSpecial;
     private WebSettings settings;
     private ShopSpecialBean.DataBean.ItemsBean special_bean;
-    private ShopHomeBean.DataBean.ItemsBean.ListBean home_bean;
+    private ShopHomeBean.DataBean.ItemsBean.ListBeanX home_bean;
     private String onte2four;
     private String url;
 
@@ -73,7 +73,7 @@ public class HomeWebviewActivity extends AppCompatActivity {
 
     private void initData() {
 //        String from = getIntent().getStringExtra("from");
-        home_bean = (ShopHomeBean.DataBean.ItemsBean.ListBean) getIntent().getSerializableExtra("home_bean");
+        home_bean = (ShopHomeBean.DataBean.ItemsBean.ListBeanX) getIntent().getSerializableExtra("home_bean");
         onte2four = getIntent().getStringExtra("one2four");
     }
 
