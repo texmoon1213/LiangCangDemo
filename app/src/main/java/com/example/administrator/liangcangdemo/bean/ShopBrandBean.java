@@ -1,12 +1,13 @@
 package com.example.administrator.liangcangdemo.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/7/7.
  */
 
-public class ShopBrandBean {
+public class ShopBrandBean implements Serializable {
 
     /**
      * meta : {"status":0,"server_time":"2017-07-07 00:59:16","account_id":0,"cost":0.0051288604736328,"errdata":null,"errmsg":""}
@@ -42,7 +43,7 @@ public class ShopBrandBean {
         this.data = data;
     }
 
-    public static class MetaBean {
+    public static class MetaBean implements Serializable {
         /**
          * status : 0
          * server_time : 2017-07-07 00:59:16
@@ -108,7 +109,7 @@ public class ShopBrandBean {
         }
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable {
         /**
          * has_more : true
          * num_items : 736
@@ -143,7 +144,7 @@ public class ShopBrandBean {
             this.items = items;
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable {
             /**
              * brand_id : 841
              * brand_name : HAZE Collection

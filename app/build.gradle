@@ -27,6 +27,7 @@ dependencies {
     //design哭
     //glide圓角
     //百分比布局
+    //banner
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -37,7 +38,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.34'
     compile 'jp.wasabeef:glide-transformations:2.0.2'
     compile 'com.android.support:percent:25.3.0'
+    compile 'com.youth.banner:banner:1.4.9'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile 'com.youth.banner:banner:1.4.9'//banner
 }

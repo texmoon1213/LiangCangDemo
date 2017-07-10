@@ -24,7 +24,8 @@
         <activity android:name=".Activity.SpecialWebviewActivity" />
         <activity android:name=".Activity.TypeListActivity" />
         <activity android:name=".Activity.TypeDetialActivity" />
-        <activity android:name=".Activity.HomeWebviewActivity"></activity>
+        <activity android:name=".Activity.HomeWebviewActivity" />
+        <activity android:name=".Activity.BrandDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class ShopBrandRecycleAdapter extends RecyclerView.Adapter {
 
+
     private List<ShopBrandBean.DataBean.ItemsBean> datas;
     private Context context;
 
@@ -37,9 +39,17 @@ public class ShopBrandRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         BrandHoder typeHoder = (BrandHoder) holder;
         typeHoder.setData(datas.get(position));
+        typeHoder.rlBrandItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.OnItemClick(v, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,6 +58,8 @@ public class ShopBrandRecycleAdapter extends RecyclerView.Adapter {
     }
 
     protected class BrandHoder extends RecyclerView.ViewHolder {
+        @BindView(R.id.rl_brand_item)
+        RelativeLayout rlBrandItem;
         @BindView(R.id.iv_shop_brand_item)
         ImageView ivShopBrandItem;
         @BindView(R.id.tv_shop_brand_item)
@@ -68,5 +80,15 @@ public class ShopBrandRecycleAdapter extends RecyclerView.Adapter {
                     .into(ivShopBrandItem);
             tvShopBrandItem.setText(itemsBean.getBrand_name());
         }
+    }
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int position);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }

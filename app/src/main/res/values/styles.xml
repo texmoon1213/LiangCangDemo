@@ -17,5 +17,15 @@
         <item name="android:paddingLeft">10dp</item>
     </style>
 
+    <style name="rb_brand_detail">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@color/zhuti_huise</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
 
 </resources>

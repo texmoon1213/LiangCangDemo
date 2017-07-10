@@ -47,7 +47,7 @@ public class TypeListActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout llTypelist;
     @BindView(R.id.recycle_type_list)
     RecyclerView recycleTypeList;
-//    @BindView(R.id.pop_all)
+    //    @BindView(R.id.pop_all)
 //    TextView popAll;
 //    @BindView(R.id.pop_200)
 //    TextView pop200;
@@ -227,6 +227,7 @@ public class TypeListActivity extends AppCompatActivity implements View.OnClickL
             ShopTypeListBean.DataBean.ItemsBean itemsBean = this.itemsBean.get(position);
             Intent initent = new Intent(TypeListActivity.this, TypeDetialActivity.class);
             initent.putExtra("type_list_bean", itemsBean);
+            initent.putExtra("from", "type_list_bean");
             startActivity(initent);
         }
     }

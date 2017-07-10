@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.example.administrator.liangcangdemo.R;
+import com.example.administrator.liangcangdemo.bean.ShopBrandDetailBean;
 import com.example.administrator.liangcangdemo.bean.ShopDetailBean;
 import com.example.administrator.liangcangdemo.bean.ShopTypeListBean;
 import com.example.administrator.liangcangdemo.untils.ConstantUtils;
@@ -28,6 +29,7 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.youth.banner.transformer.AccordionTransformer;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -75,6 +77,7 @@ public class TypeDetialActivity extends AppCompatActivity {
     LinearLayout llDetailRight;
     private String detailUrl;
     private ShopDetailBean.DataBean.ItemsBean items;
+    private String goods_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,9 +94,9 @@ public class TypeDetialActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 if (checkedId == R.id.rb_detail_left) {
                     llDetailLeft.setVisibility(View.VISIBLE);
-                    llDetailRight.setVisibility(View.INVISIBLE);
+                    llDetailRight.setVisibility(View.GONE);
                 } else if (checkedId == R.id.rb_detail_right) {
-                    llDetailLeft.setVisibility(View.INVISIBLE);
+                    llDetailLeft.setVisibility(View.GONE);
                     llDetailRight.setVisibility(View.VISIBLE);
                 }
             }
@@ -101,14 +104,26 @@ public class TypeDetialActivity extends AppCompatActivity {
     }
 
     private void initData() {
+//        ShopTypeListBean.DataBean.ItemsBean type_list_bean = (ShopTypeListBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_list_bean");
+        detailUrl = ConstantUtils.SHOP_TYPE_DETAIL;
+
+        String from = getIntent().getStringExtra("from");
+        Serializable serializableExtra = getIntent().getSerializableExtra(from);
+
+        if (from.equals("brand_list_bean")) {
+            ShopBrandDetailBean.DataBean.ItemsBean item = (ShopBrandDetailBean.DataBean.ItemsBean) serializableExtra;
+            goods_id = item.getGoods_id();
+        } else if (from.equals("type_list_bean")) {
+            ShopTypeListBean.DataBean.ItemsBean item = (ShopTypeListBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_list_bean");
+            goods_id = item.getGoods_id();
+        }
         getDataFromNet();
     }
 
     private void getDataFromNet() {
-        ShopTypeListBean.DataBean.ItemsBean type_list_bean = (ShopTypeListBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_list_bean");
-        detailUrl = ConstantUtils.SHOP_TYPE_DETAIL;
+
         OkGo.getInstance().
-                addCommonParams(new HttpParams("goods_id", type_list_bean.getGoods_id()))
+                addCommonParams(new HttpParams("goods_id", goods_id))
                 .<String>get(detailUrl).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {

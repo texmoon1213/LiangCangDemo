@@ -154,25 +154,13 @@
 
                 <RadioButton
                     android:id="@+id/rb_detail_left"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/zhuti_huise"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="商品详情"
-                    android:textColor="@color/colorWhite" />
+                    style="@style/rb_brand_detail"
+                    android:text="商品详情" />
 
                 <RadioButton
                     android:id="@+id/rb_detail_right"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/zhuti_huise"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="购物须知"
-                    android:textColor="@color/colorWhite" />
+                    style="@style/rb_brand_detail"
+                    android:text="购物须知" />
             </RadioGroup>
 
             <LinearLayout
