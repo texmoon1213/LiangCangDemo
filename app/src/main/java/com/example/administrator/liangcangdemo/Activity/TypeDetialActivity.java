@@ -1,11 +1,17 @@
 package com.example.administrator.liangcangdemo.Activity;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -16,6 +22,7 @@ import com.example.administrator.liangcangdemo.bean.ShopTypeListBean;
 import com.example.administrator.liangcangdemo.untils.ConstantUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
@@ -52,6 +59,20 @@ public class TypeDetialActivity extends AppCompatActivity {
     ImageView ivBrandlogoDetail;
     @BindView(R.id.tv_brandname_detail)
     TextView tvBrandnameDetail;
+    @BindView(R.id.ll_brandlogo_brandname)
+    LinearLayout llBrandlogoBrandname;
+    @BindView(R.id.rb_detail_left)
+    RadioButton rbDetailLeft;
+    @BindView(R.id.rb_detail_right)
+    RadioButton rbDetailRight;
+    @BindView(R.id.ll_detail_left)
+    LinearLayout llDetailLeft;
+    @BindView(R.id.tv_detail_right)
+    TextView tvDetailRight;
+    @BindView(R.id.rg_detail)
+    RadioGroup rgDetail;
+    @BindView(R.id.ll_detail_right)
+    LinearLayout llDetailRight;
     private String detailUrl;
     private ShopDetailBean.DataBean.ItemsBean items;
 
@@ -61,6 +82,22 @@ public class TypeDetialActivity extends AppCompatActivity {
         setContentView(R.layout.activity_type_detial);
         ButterKnife.bind(this);
         initData();
+        initListener();
+    }
+
+    private void initListener() {
+        rgDetail.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (checkedId == R.id.rb_detail_left) {
+                    llDetailLeft.setVisibility(View.VISIBLE);
+                    llDetailRight.setVisibility(View.INVISIBLE);
+                } else if (checkedId == R.id.rb_detail_right) {
+                    llDetailLeft.setVisibility(View.INVISIBLE);
+                    llDetailRight.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -69,18 +106,20 @@ public class TypeDetialActivity extends AppCompatActivity {
 
     private void getDataFromNet() {
         ShopTypeListBean.DataBean.ItemsBean type_list_bean = (ShopTypeListBean.DataBean.ItemsBean) getIntent().getSerializableExtra("type_list_bean");
-        detailUrl = ConstantUtils.SHOP_TYPE_DETAIL_START + type_list_bean.getGoods_id() + ConstantUtils.SHOP_TYPE_DETAIL_END;
-        OkGo.<String>get(detailUrl).tag(this).execute(new StringCallback() {
+        detailUrl = ConstantUtils.SHOP_TYPE_DETAIL;
+        OkGo.getInstance().
+                addCommonParams(new HttpParams("goods_id", type_list_bean.getGoods_id()))
+                .<String>get(detailUrl).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
-                Log.e("TAG", "分类item成功==" + s);
+                Log.e("TAGS", "分类item成功==" + s);
                 processData(s);
             }
 
             @Override
             public void onError(Call call, Response response, Exception e) {
                 super.onError(call, response, e);
-                Log.e("TAG", "分类item失敗==" + e.getMessage());
+                Log.e("TAGS", "分类item失敗==" + e.getMessage());
             }
         });
     }
@@ -101,6 +140,33 @@ public class TypeDetialActivity extends AppCompatActivity {
         tvDiscountPriceItemDetail.setText("￥" + price);
         Glide.with(TypeDetialActivity.this).load(items.getBrand_info().getBrand_logo()).crossFade().into(ivBrandlogoDetail);
         tvBrandnameDetail.setText(items.getBrand_info().getBrand_name());
+        llDetailRight.setVisibility(View.INVISIBLE);
+        tvDetailRight.setText(items.getGood_guide().getContent());
+        List<ShopDetailBean.DataBean.ItemsBean.GoodsInfoBean> goods_info = items.getGoods_info();
+
+        for (int i = 0; i < goods_info.size(); i++) {
+            int type = goods_info.get(i).getType();
+            if (type == 1) {
+                ImageView imageView = new ImageView(TypeDetialActivity.this);
+                Glide.with(TypeDetialActivity.this).load(goods_info.get(i).getContent().getImg()).crossFade().into(imageView);
+                llDetailLeft.addView(imageView);
+            }
+        }
+        String contentText = null;
+        for (int i = 0; i < goods_info.size(); i++) {
+            int type = goods_info.get(i).getType();
+            if (type == 0) {
+//                tvDetailRight.setText(goods_info.get(i).getContent().get);
+//                llDetailLeft.addView(imageView);
+                String text = goods_info.get(i).getContent().getText();
+                contentText += text + "\n";
+            }
+        }
+        TextView textView = new TextView(TypeDetialActivity.this);
+        textView.setText(contentText);
+        textView.setTextColor(Color.WHITE);
+        llDetailLeft.addView(textView);
+
     }
 
     private void initBanner() {

@@ -47,7 +47,7 @@ public class TypeListActivity extends AppCompatActivity implements View.OnClickL
     LinearLayout llTypelist;
     @BindView(R.id.recycle_type_list)
     RecyclerView recycleTypeList;
-    //    @BindView(R.id.pop_all)
+//    @BindView(R.id.pop_all)
 //    TextView popAll;
 //    @BindView(R.id.pop_200)
 //    TextView pop200;

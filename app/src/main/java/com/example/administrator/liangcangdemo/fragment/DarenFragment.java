@@ -13,7 +13,7 @@ public class DarenFragment extends BaseFragment {
     @Override
     public View initView() {
         TextView textView = new TextView(context);
-        textView.setText("大人fg");
+        textView.setText("達人");
         textView.setTextSize(40);
         return textView;
     }

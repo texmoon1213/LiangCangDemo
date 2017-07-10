@@ -52,6 +52,8 @@ public class TypeFragment extends BaseFragment {
     }
 
     private void getDataFromNet() {
+
+
         OkGo.<String>get(ConstantUtils.SHOP_TYPE).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {

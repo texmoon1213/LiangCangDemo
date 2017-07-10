@@ -118,10 +118,11 @@
                 android:textColor="@color/colorWhite" />
 
             <LinearLayout
+                android:id="@+id/ll_brandlogo_brandname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_choice_size_detail"
-                android:layout_marginTop="1000dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/zhuti_huise"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -143,6 +144,63 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
+            <RadioGroup
+                android:id="@+id/rg_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_brandlogo_brandname"
+                android:orientation="horizontal"
+                android:paddingTop="20dp">
+
+                <RadioButton
+                    android:id="@+id/rb_detail_left"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/zhuti_huise"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="商品详情"
+                    android:textColor="@color/colorWhite" />
+
+                <RadioButton
+                    android:id="@+id/rb_detail_right"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/zhuti_huise"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="购物须知"
+                    android:textColor="@color/colorWhite" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/ll_detail_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rg_detail"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_detail_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rg_detail"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_detail_right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="购物须知....."
+                    android:textColor="@color/colorWhite" />
+
+            </LinearLayout>
             <!--喜欢-->
             <TextView
                 android:id="@+id/tv_like_count_item_detail"
@@ -182,6 +240,7 @@
                 android:layout_alignParentRight="true"
                 android:src="@drawable/cart_item_deatail_gray" />
         </RelativeLayout>
+
 
     </ScrollView>
 

@@ -19,4 +19,5 @@ public class ConstantUtils {
     //商品详情页
     public static final String SHOP_TYPE_DETAIL_START = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&goods_id=";
     public static final String SHOP_TYPE_DETAIL_END = "&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+    public static final String SHOP_TYPE_DETAIL = "http://mobile.iliangcang.com/goods/goodsDetail?app_key=Android&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
 }
