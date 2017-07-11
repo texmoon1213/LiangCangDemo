@@ -15,6 +15,7 @@ import com.example.administrator.liangcangdemo.bean.MsgBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,6 +46,18 @@ public class MsgFragment extends BaseFragment {
         return view;
     }
 
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("杂志");
+        activity.getBackTitlebar().setVisibility(View.GONE);
+        activity.getSearchTitlebar().setVisibility(View.GONE);
+        activity.getShopcarTitlebar().setVisibility(View.GONE);
+        activity.getMenuTitlebar().setVisibility(View.GONE);
+    }
+
     @Override
     public void initData() {
         super.initData();
@@ -71,11 +84,18 @@ public class MsgFragment extends BaseFragment {
 
     private void process(String s) {
         MsgBean msgBean = JSON.parseObject(s, MsgBean.class);
-        List<MsgBean.DataBean.ItemsBean.InfosBean> infos = msgBean.getData().getItems().get(0).getInfos();
+        Log.e("TAG", "msgBean==getKeys()==" + msgBean.getData().getItems().getKeys().size());
+        Log.e("TAG", "msgBean==getInfos()==" + msgBean.getData().getItems().getInfos().size());
+
+        int size = msgBean.getData().getItems().getKeys().size();
+        List<MsgBean.DataBean.ItemsBean.InfosBean> infos = new ArrayList<>();
+//        for (int i = 0; i < size; i++) {
+//            infos.add(msgBean.getData().getItems().getInfos().get(i));
+//        }
         Log.e("TAG", "infos.len==" + infos.size());
         MsgRecycleAdapter adapter = new MsgRecycleAdapter(context, infos);
         recycleMsg.setAdapter(adapter);
-        recycleMsg.setLayoutManager(new LinearLayoutManager(context));
+        recycleMsg.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
     }
 
     @Override

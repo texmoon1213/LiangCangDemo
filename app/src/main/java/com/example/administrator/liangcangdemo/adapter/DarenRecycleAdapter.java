@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
 
 public class DarenRecycleAdapter extends RecyclerView.Adapter {
 
+
     private List<DarenBean.DataBean.ItemsBean> datas;
     private Context context;
 
@@ -37,9 +39,17 @@ public class DarenRecycleAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         DarenHoder darenHoder = (DarenHoder) holder;
         darenHoder.setData(datas.get(position));
+        darenHoder.llDarenItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mItemClickListener != null) {
+                    mItemClickListener.OnItemClick(v, position);
+                }
+            }
+        });
     }
 
     @Override
@@ -48,6 +58,8 @@ public class DarenRecycleAdapter extends RecyclerView.Adapter {
     }
 
     protected class DarenHoder extends RecyclerView.ViewHolder {
+        @BindView(R.id.ll_daren_item)
+        LinearLayout llDarenItem;
         @BindView(R.id.iv_daren_item)
         ImageView ivDarenItem;
         @BindView(R.id.tv_username_daren_item)
@@ -65,5 +77,16 @@ public class DarenRecycleAdapter extends RecyclerView.Adapter {
             tvUsernameDarenItem.setText(itemsBean.getUsername());
             tvDutyDarenItem.setText(itemsBean.getDuty());
         }
+    }
+
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int position);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }

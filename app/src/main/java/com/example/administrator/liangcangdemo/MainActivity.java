@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.shopcar_titlebar)
     ImageView shopcarTitlebar;
 
+    public ImageView getShopcarTitlebar() {
+        return shopcarTitlebar;
+    }
 
     @BindView(R.id.rb1_main)
     RadioButton rb1Main;

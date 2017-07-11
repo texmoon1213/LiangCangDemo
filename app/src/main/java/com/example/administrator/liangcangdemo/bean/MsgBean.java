@@ -112,7 +112,7 @@ public class MsgBean {
     public static class DataBean implements Serializable {
         private boolean has_more;
         private int num_items;
-        private List<ItemsBean> items;
+        private ItemsBean items;
 
         public boolean isHas_more() {
             return has_more;
@@ -130,11 +130,11 @@ public class MsgBean {
             this.num_items = num_items;
         }
 
-        public List<ItemsBean> getItems() {
+        public ItemsBean getItems() {
             return items;
         }
 
-        public void setItems(List<ItemsBean> items) {
+        public void setItems(ItemsBean items) {
             this.items = items;
         }
 
@@ -162,20 +162,20 @@ public class MsgBean {
             public static class InfosBean implements Serializable {
 
                 /**
-                 * taid : 1511
-                 * topic_name : 世界上出众的设计师，不全都来自欧美那些设计大国
-                 * cat_id : 16
-                 * author_id : 11
-                 * topic_url : http://www.iliangcang.com/i/topicapp/201609193252
-                 * access_url : http://www.iliangcang.com/i/topicapp/201609193252
-                 * cover_img : http://imgs-qn.iliangcang.com/ware/appimg/topic/cover/1511_.jpg?_t=1474253832
-                 * cover_img_new : http://imgs-qn.iliangcang.com/ware/appimg/topic/cover/1511_.jpg?_t=1474253832
-                 * hit_number : 642
-                 * addtime : 2016-09-19 10:33:18
+                 * taid : 1692
+                 * topic_name : 这几种咖啡冷门喝法，只有极少数人试过
+                 * cat_id : 9
+                 * author_id : 1
+                 * topic_url : http://www.iliangcang.com/i/topicapp/201701091815
+                 * access_url : http://www.iliangcang.com/i/topicapp/201701091815
+                 * cover_img : http://imgs-qn.iliangcang.com/ware/appimg/topic/cover/1692_.jpg?_t=1483946343
+                 * cover_img_new : http://imgs-qn.iliangcang.com/ware/appimg/topic/cover/1692_.jpg?_t=1483946343
+                 * hit_number : 488
+                 * addtime : 2017-01-08 15:18:55
                  * content :
                  * nav_title : 良仓杂志
-                 * author_name : 普象工业设计小站
-                 * cat_name : 空间
+                 * author_name : 良仓
+                 * cat_name : 美食
                  */
 
                 private String taid;

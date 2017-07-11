@@ -72,6 +72,18 @@ public class ShopFragment extends BaseFragment {
         fragments.add(new GiftFragment());
     }
 
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("商店");
+        activity.getBackTitlebar().setVisibility(View.GONE);
+        activity.getSearchTitlebar().setVisibility(View.VISIBLE);
+        activity.getShopcarTitlebar().setVisibility(View.VISIBLE);
+        activity.getMenuTitlebar().setVisibility(View.GONE);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
