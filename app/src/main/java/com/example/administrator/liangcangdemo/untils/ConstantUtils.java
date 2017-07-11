@@ -32,4 +32,12 @@ public class ConstantUtils {
     public static final String SHOP_GIFT_PARENT = "http://mobile.iliangcang.com/goods/goodsList?app_key=Android&count=10&list_id=6&page=1&sig=73760B2740FA36D5A273523FBC9295FE%7C285269230036268&v=1.0";
     //达人首页
     public static final String DAREN_HOME = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&page=1&sig=BF287AF953103F390674E73DDA18CFD8|639843030233268&v=1.0";
+    //粉丝 &owner_id=999998864
+    public static final String DAREN_DETAIL_FOLLOW = "http://mobile.iliangcang.com/user/masterFollowed?app_key=Android&count=12&page=1&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+    //喜欢&owner_id=121530857
+    public static final String DAREN_DETAIL_LIKE = "http://mobile.iliangcang.com/user/masterLike?app_key=Android&count=12&page=1&sig=BF287AF953103F390674E73DDA18CFD8|639843030233268&v=1.0";
+    //推荐&owner_id=121530857
+    public static final String DAREN_DETAIL_RECOMMEND = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&page=1&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
+    //关注&owner_id=121530857
+    public static final String DAREN_DETAIL_GUANZHU = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&page=1&sig=BF287AF953103F390674E73DDA18CFD8|639843030233268&v=1.0";
 }
