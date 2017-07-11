@@ -79,7 +79,6 @@ public class DarenRecycleAdapter extends RecyclerView.Adapter {
         }
     }
 
-
     public interface ItemClickListener {
         void OnItemClick(View v, int position);
     }
