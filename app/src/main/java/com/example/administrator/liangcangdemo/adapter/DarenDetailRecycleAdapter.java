@@ -3,6 +3,7 @@ package com.example.administrator.liangcangdemo.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -110,36 +111,72 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
         RecyclerView.ViewHolder viewHolder = null;
         switch (viewType) {
             case LIKE:
-                viewHolder = new LikeHoder(View.inflate(context, R.layout.daren_like_detail_item, null));
+                viewHolder = new LikeHoder(LayoutInflater.from(context).inflate(R.layout.daren_like_detail_item, parent, false));
                 break;
             case RECOMMEND:
-                viewHolder = new RecommendHoder(View.inflate(context, R.layout.daren_recommend_detail_item, null));
+                viewHolder = new RecommendHoder(LayoutInflater.from(context).inflate(R.layout.daren_recommend_detail_item, parent, false));
                 break;
             case GUANZHU:
-                viewHolder = new GuanZhuHoder(View.inflate(context, R.layout.daren_guanzhu_detail_item, null));
+                viewHolder = new GuanZhuHoder(LayoutInflater.from(context).inflate(R.layout.daren_guanzhu_detail_item, parent, false));
                 break;
             case FENSI:
-                viewHolder = new FenSiHoder(View.inflate(context, R.layout.daren_fensi_detail_item, null));
+                viewHolder = new FenSiHoder(LayoutInflater.from(context).inflate(R.layout.daren_fensi_detail_item, parent, false));
                 break;
-
         }
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (getItemViewType(position) == LIKE) {
             LikeHoder likeholder = (LikeHoder) holder;
             likeholder.setData(datas.get(position));
+            likeholder.ivDarenLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "", "");
+                    }
+                }
+            });
         } else if (getItemViewType(position) == RECOMMEND) {
             RecommendHoder recommendHolder = (RecommendHoder) holder;
             recommendHolder.setData(datas.get(position));
+            recommendHolder.ivDarenRecommend.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        mItemClickListener.OnItemClick(v, position, "", "");
+                    }
+                }
+            });
         } else if (getItemViewType(position) == GUANZHU) {
             GuanZhuHoder guanzhuHolder = (GuanZhuHoder) holder;
             guanzhuHolder.setData(datas.get(position));
+            guanzhuHolder.ivDarenGuanzhu.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        String nextUrl = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_id();
+                        String nextName = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_name();
+                        mItemClickListener.OnItemClick(v, position, nextUrl, nextName);
+                    }
+                }
+            });
         } else if (getItemViewType(position) == FENSI) {
             FenSiHoder fensiholder = (FenSiHoder) holder;
             fensiholder.setData(datas.get(position));
+            fensiholder.ivDarenFensi.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mItemClickListener != null) {
+                        String nextUrl = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_id();
+                        String nextName = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_name();
+
+                        mItemClickListener.OnItemClick(v, position, nextUrl, nextName);
+                    }
+                }
+            });
         }
     }
 
@@ -218,5 +255,15 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
             String goods_image = ((DarenRecommendBean.DataBean.ItemsBean.GoodsBean) o).getGoods_image();
             Glide.with(context).load(goods_image).crossFade().into(ivDarenRecommend);
         }
+    }
+
+    public interface ItemClickListener {
+        void OnItemClick(View v, int position, String nextUrl, String nextName);
+    }
+
+    ItemClickListener mItemClickListener;
+
+    public void setOnItemClickListener(ItemClickListener itemClickListener) {
+        mItemClickListener = itemClickListener;
     }
 }

@@ -118,8 +118,13 @@ public class DarenFragment extends BaseFragment {
         public void OnItemClick(View v, int position) {
             DarenBean.DataBean.ItemsBean itemsBean = datas.get(position);
             Intent initent = new Intent(getContext(), DarenDetailActivity.class);
-            initent.putExtra("daren_bean", itemsBean);
-            initent.putExtra("from", "daren_bean");
+
+//            initent.putExtra("daren_bean", itemsBean);
+//            initent.putExtra("from", "daren_bean");
+            String uid = itemsBean.getUid();
+            String username = itemsBean.getUsername();
+            initent.putExtra("daren_userId", uid);
+            initent.putExtra("daren_userName", username);
             startActivity(initent);
         }
     }
