@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.administrator.liangcangdemo.Activity.TypeListActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.ShopTypeRecycleAdapter;
@@ -51,6 +52,38 @@ public class TypeFragment extends BaseFragment {
         getDataFromNet();
     }
 
+    private void initReFresh(ShopTypeBean shopSpecialBean) {
+        refreshTypeShop.setLoadMore(shopSpecialBean.getData().isHas_more());
+        refreshTypeShop.setMaterialRefreshListener(new MaterialRefreshListener() {
+
+            //下拉刷新
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+//                isLoadMore = false;
+                getDataFromNet();
+            }
+
+            //加载更多-上拉刷新
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+//                isLoadMore = true;
+//                getMoreData();
+                getDataFromNet();
+            }
+
+            @Override
+            public void onfinish() {
+                super.onfinish();
+                Toast.makeText(context, "加载完成", Toast.LENGTH_SHORT).show();
+
+//                refreshTypeShop.finishRefreshing();
+
+            }
+        });
+
+    }
+
     private void getDataFromNet() {
 
 
@@ -73,13 +106,14 @@ public class TypeFragment extends BaseFragment {
         ShopTypeBean shopSpecialBean = JSON.parseObject(s, ShopTypeBean.class);
         List<ShopTypeBean.DataBean.ItemsBean> itemsBeen = shopSpecialBean.getData().getItems();
         if (itemsBeen != null && itemsBeen.size() > 0) {
-
             ShopTypeRecycleAdapter adapter = new ShopTypeRecycleAdapter(context, itemsBeen);
             recycleTypeShop.setAdapter(adapter);
-//            recycleTypeShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
             recycleTypeShop.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
-//            recycleTypeShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
             adapter.setOnItemClickListener(new TypeListener(itemsBeen));
+            initReFresh(shopSpecialBean);
+            //加载关闭
+            refreshTypeShop.finishRefresh();
+            refreshTypeShop.finishRefreshLoadMore();
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }

@@ -205,7 +205,6 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
         public void OnItemClick(View v, int position) {
             DarenBean.DataBean.ItemsBean itemsBean = datas.get(position);
             Intent initent = new Intent(getContext(), DarenDetailActivity.class);
-
 //            initent.putExtra("daren_bean", itemsBean);
 //            initent.putExtra("from", "daren_bean");
             String uid = itemsBean.getUid();

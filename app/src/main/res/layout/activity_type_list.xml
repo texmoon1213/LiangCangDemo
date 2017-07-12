@@ -32,11 +32,17 @@
             android:src="@drawable/tpye_order_arrow_down" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycle_type_list"
+    <com.cjj.MaterialRefreshLayout
+        android:id="@+id/refresh_type_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#000000">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_type_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </com.cjj.MaterialRefreshLayout>
+
 </LinearLayout>
