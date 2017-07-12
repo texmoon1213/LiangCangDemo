@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
@@ -120,10 +121,15 @@ public class BrandDetailActivity extends AppCompatActivity {
 
     private void progress(String s) {
         shopDetailBean = JSON.parseObject(s, ShopBrandDetailBean.class);
+
         setData();
     }
 
     private void setData() {
+        if (shopDetailBean.getData().getItems() == null || shopDetailBean == null || shopDetailBean.getData().getItems().get(0) == null) {
+            Toast.makeText(BrandDetailActivity.this, "没有数据", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Glide.with(BrandDetailActivity.this).load(brand_bean.getBrand_logo()).crossFade().into(ivBrandLoge);
         tvBrandName.setText(brand_bean.getBrand_name());
         tvBrandDesc.setText(shopDetailBean.getData().getItems().get(0).getBrand_info().getBrand_desc());

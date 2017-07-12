@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.administrator.liangcangdemo.Activity.SpecialWebviewActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.ShopSpecialRecycleAdapter;
@@ -18,6 +19,7 @@ import com.example.administrator.liangcangdemo.untils.ConstantUtils;
 import com.example.administrator.liangcangdemo.view.DividerItemDecoration;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 
 import java.util.List;
 
@@ -37,6 +39,11 @@ public class SpecialFragment extends BaseFragment {
     @BindView(R.id.refresh_special_shop)
     MaterialRefreshLayout refreshSpecialShop;
     Unbinder unbinder;
+    private static final int SHANG = 0;
+    private static final int XIA = 1;
+    private int count = -1;
+    private List<ShopSpecialBean.DataBean.ItemsBean> datasBean;
+    private ShopSpecialRecycleAdapter adapter;
 
     @Override
     public View initView() {
@@ -48,15 +55,21 @@ public class SpecialFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        getDataFromNet(ConstantUtils.SHOP_SPECIAL);
+        getDataFromNet(XIA);
     }
 
-    private void getDataFromNet(String urlspecial) {
-        OkGo.<String>get(urlspecial).tag(this).execute(new StringCallback() {
+    private void getDataFromNet(final int shangOrXia) {
+        if (shangOrXia == XIA) {
+            count = 1;
+        } else if (shangOrXia == SHANG) {
+            count = count + 1;
+        }
+        OkGo.getInstance().addCommonParams(new HttpParams("page", count + ""))
+                .<String>get(ConstantUtils.SHOP_SPECIAL).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
                 Log.e("TAG", "專題成功==" + s);
-                processData(s);
+                processData(s, shangOrXia);
             }
 
             @Override
@@ -67,18 +80,59 @@ public class SpecialFragment extends BaseFragment {
         });
     }
 
-    private void processData(String s) {
+    private void processData(String s, int shangOrXia) {
         ShopSpecialBean shopSpecialBean = JSON.parseObject(s, ShopSpecialBean.class);
         List<ShopSpecialBean.DataBean.ItemsBean> itemsBeen = shopSpecialBean.getData().getItems();
+
+        if (shangOrXia == XIA) {
+            datasBean = itemsBeen;
+        } else if (shangOrXia == SHANG) {
+            datasBean.addAll(itemsBeen);
+        }
         if (itemsBeen != null && itemsBeen.size() > 0) {
-            ShopSpecialRecycleAdapter adapter = new ShopSpecialRecycleAdapter(context, itemsBeen);
-            recycleSpecialShop.setAdapter(adapter);
-            recycleSpecialShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-            recycleSpecialShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
-            adapter.setOnItemClickListener(new SpecialListener(itemsBeen));
+            if (count == 1) {
+                adapter = new ShopSpecialRecycleAdapter(context, itemsBeen);
+                recycleSpecialShop.setAdapter(adapter);
+                recycleSpecialShop.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                recycleSpecialShop.addItemDecoration(new DividerItemDecoration(context, DividerItemDecoration.VERTICAL_LIST));
+                adapter.setOnItemClickListener(new SpecialListener(itemsBeen));
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+            initReFresh(shopSpecialBean);
+            refreshSpecialShop.finishRefresh();
+            refreshSpecialShop.finishRefreshLoadMore();
         } else {
             Toast.makeText(context, "联网失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void initReFresh(ShopSpecialBean shopSpecialBean) {
+        refreshSpecialShop.setLoadMore(shopSpecialBean.getData().isHas_more());
+        refreshSpecialShop.setMaterialRefreshListener(new MaterialRefreshListener() {
+
+            //下拉刷新
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+//                isLoadMore = false;
+                getDataFromNet(XIA);
+            }
+
+            //加载更多-上拉刷新
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+//                isLoadMore = true;
+                getDataFromNet(SHANG);
+            }
+
+            @Override
+            public void onfinish() {
+                super.onfinish();
+                Toast.makeText(context, "加载完成", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 

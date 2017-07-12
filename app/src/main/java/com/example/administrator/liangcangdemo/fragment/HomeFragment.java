@@ -52,6 +52,7 @@ public class HomeFragment extends BaseFragment {
 
     private void getDataFromNet() {
         //        .cacheKey("home1").cacheMode(CacheMode.DEFAULT)缓存加不上
+
         OkGo.<String>get(ConstantUtils.SHOP_HOME).tag(this).execute(new StringCallback() {
             @Override
             public void onSuccess(String s, Call call, Response response) {
