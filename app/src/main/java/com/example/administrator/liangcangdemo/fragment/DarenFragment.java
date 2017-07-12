@@ -12,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.example.administrator.liangcangdemo.Activity.DarenDetailActivity;
 import com.example.administrator.liangcangdemo.MainActivity;
 import com.example.administrator.liangcangdemo.R;
@@ -24,6 +26,7 @@ import com.example.administrator.liangcangdemo.bean.DarenBean;
 import com.example.administrator.liangcangdemo.untils.ConstantUtils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
+import com.lzy.okgo.model.HttpParams;
 
 import java.util.List;
 
@@ -52,6 +55,11 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
     private TextView freshJoin;
     private ImageView menuTitlebar;
     private String popUrl;
+    private static final int SHANG = 0;
+    private static final int XIA = 1;
+    private int count = -1;
+    private List<DarenBean.DataBean.ItemsBean> datas;
+    private DarenRecycleAdapter adapter;
 
     @Override
     public View initView() {
@@ -123,7 +131,7 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void initData() {
         super.initData();
-        getDataFromData(ConstantUtils.DAREN_HOME);
+        getDataFromNet(ConstantUtils.DAREN_HOME, XIA);
         initListener();
     }
 
@@ -131,13 +139,19 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
-    private void getDataFromData(String url) {
-        OkGo.get(url)
+    private void getDataFromNet(final String url, final int shangOrXia) {
+        if (shangOrXia == XIA) {
+            count = 1;
+        } else if (shangOrXia == SHANG) {
+            count = count + 1;
+        }
+        OkGo.getInstance().addCommonParams(new HttpParams("page", count + ""))
+                .get(url)
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
                         Log.e("TAG", "达人联网成功" + s);
-                        process(s);
+                        process(s, shangOrXia, url);
                     }
 
                     @Override
@@ -148,16 +162,60 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
                 });
     }
 
-    private void process(String s) {
+    /***
+     *
+     * @param s  json串的数据
+     * @param shangOrXia    判断上下刷新
+     * @param url   记录跳转的接口，以便跳转之后 上拉下啦数据正常
+     */
+    private void process(String s, int shangOrXia, String url) {
         DarenBean darenBean = JSON.parseObject(s, DarenBean.class);
         List<DarenBean.DataBean.ItemsBean> items = darenBean.getData().getItems();
-        DarenRecycleAdapter adapter = new DarenRecycleAdapter(context, items);
-        recycleDaren.setAdapter(adapter);
-        recycleDaren.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
-//        recycleDaren.addItemDecoration(new DividerGridItemDecorationHY(context));
-//        recycleDaren.addItemDecoration(new RecyclerViewDivider(context, LinearLayout.HORIZONTAL, R.drawable.divider_bg));
-        adapter.setOnItemClickListener(new DarenListener(items));
+        if (shangOrXia == XIA) {
+            datas = items;
+        } else if (shangOrXia == SHANG) {
+            datas.addAll(items);
+        }
+        if (count == 1) {
+            adapter = new DarenRecycleAdapter(context, datas);
+            recycleDaren.setAdapter(adapter);
+            recycleDaren.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
+            adapter.setOnItemClickListener(new DarenListener(datas));
+        } else {
+            adapter.notifyDataSetChanged();
+        }
+        initReFresh(darenBean, url);
+        refreshDaren.finishRefresh();
+        refreshDaren.finishRefreshLoadMore();
     }
+
+    private void initReFresh(DarenBean darenBean, final String url) {
+        refreshDaren.setLoadMore(darenBean.getData().isHas_more());
+        refreshDaren.setMaterialRefreshListener(new MaterialRefreshListener() {
+
+            //下拉刷新
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+//                isLoadMore = false;
+                getDataFromNet(url, XIA);
+            }
+
+            //加载更多-上拉刷新
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+//                isLoadMore = true;
+                getDataFromNet(url, SHANG);
+            }
+
+            @Override
+            public void onfinish() {
+                super.onfinish();
+                Toast.makeText(context, "加载完成", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -189,7 +247,7 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
                 popUrl = "http://mobile.iliangcang.com/user/masterList?app_key=Android&count=18&orderby=action_time&page=9&sig=05D2057FE3D726A43A94505807516FC3|136072130089168&v=1.0";
                 break;
         }
-        getDataFromData(popUrl);
+        getDataFromNet(popUrl, XIA);
         popupWindow.dismiss();
     }
 
