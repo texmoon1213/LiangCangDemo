@@ -12,6 +12,17 @@
         android:paddingLeft="10dp"
         android:src="@drawable/abc_ic_search_api_mtrl_alpha" />
 
+    <TextSwitcher
+        android:id="@+id/textswitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:inAnimation="@anim/fade_in_slide_in"
+        android:outAnimation="@anim/fade_out_slide_out"
+        android:paddingLeft="20dp"
+        android:textAlignment="center"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/back_titlebar"
         android:layout_width="wrap_content"

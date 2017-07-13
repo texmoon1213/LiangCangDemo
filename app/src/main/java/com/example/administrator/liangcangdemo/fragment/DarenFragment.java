@@ -110,6 +110,7 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
         activity.getTvTitlebar().setText("达人");
         activity.getBackTitlebar().setVisibility(View.GONE);
         activity.getSearchTitlebar().setVisibility(View.VISIBLE);
+        activity.getTextswitcher().setVisibility(View.GONE);
         activity.getShopcarTitlebar().setVisibility(View.GONE);
         menuTitlebar = activity.getMenuTitlebar();
         menuTitlebar.setVisibility(View.VISIBLE);
@@ -125,6 +126,7 @@ public class DarenFragment extends BaseFragment implements View.OnClickListener 
         activity.getBackTitlebar().setVisibility(View.GONE);
         activity.getSearchTitlebar().setVisibility(View.VISIBLE);
         activity.getMenuTitlebar().setVisibility(View.VISIBLE);
+        activity.getTextswitcher().setVisibility(View.GONE);
         activity.getShopcarTitlebar().setVisibility(View.GONE);
     }
 

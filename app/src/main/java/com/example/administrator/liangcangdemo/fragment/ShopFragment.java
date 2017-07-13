@@ -82,6 +82,7 @@ public class ShopFragment extends BaseFragment {
         activity.getSearchTitlebar().setVisibility(View.VISIBLE);
         activity.getShopcarTitlebar().setVisibility(View.VISIBLE);
         activity.getMenuTitlebar().setVisibility(View.GONE);
+        activity.getTextswitcher().setVisibility(View.GONE);
     }
 
     @Override

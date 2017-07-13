@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 
 public class MsgRecycleAdapter extends RecyclerView.Adapter {
 
-
     private ArrayList<MSGBean> datas;
     private Context context;
+    private int prePosition;
 
     public MsgRecycleAdapter(Context context, ArrayList<MSGBean> listBeen) {
         this.context = context;
@@ -43,6 +43,14 @@ public class MsgRecycleAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         SpecialHoder viewHolder = (SpecialHoder) holder;
         viewHolder.setData(datas.get(position));
+        if (datas.get(position).getMonthInfo().equals(datas.get(prePosition).getMonthInfo())) {
+            viewHolder.tvMsgMonth.setVisibility(View.GONE);
+        } else {
+            viewHolder.tvMsgMonth.setVisibility(View.VISIBLE);
+        }
+        if (position == 0) {
+            viewHolder.tvMsgMonth.setVisibility(View.GONE);
+        }
         viewHolder.rlShopSpecialItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +59,7 @@ public class MsgRecycleAdapter extends RecyclerView.Adapter {
                 }
             }
         });
+        prePosition = position;
     }
 
     @Override
@@ -65,6 +74,8 @@ public class MsgRecycleAdapter extends RecyclerView.Adapter {
         TextView tvShopSpecialItem;
         @BindView(R.id.rl_shop_special_item)
         RelativeLayout rlShopSpecialItem;
+        @BindView(R.id.tv_msg_month)
+        TextView tvMsgMonth;
 
         public SpecialHoder(View inflate) {
             super(inflate);
@@ -74,6 +85,7 @@ public class MsgRecycleAdapter extends RecyclerView.Adapter {
         public void setData(final MSGBean listBean) {
             Glide.with(context).load(listBean.getCover_img()).crossFade().into(ivShopSpecialItem);
             tvShopSpecialItem.setText(listBean.getTopic_name());
+            tvMsgMonth.setText("一" + listBean.getMonthInfo() + "一");
         }
     }
 

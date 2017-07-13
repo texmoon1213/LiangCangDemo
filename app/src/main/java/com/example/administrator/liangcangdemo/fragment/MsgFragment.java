@@ -1,9 +1,13 @@
 package com.example.administrator.liangcangdemo.fragment;
 
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextSwitcher;
+import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.cjj.MaterialRefreshLayout;
 import com.example.administrator.liangcangdemo.MainActivity;
@@ -37,27 +41,44 @@ public class MsgFragment extends BaseFragment {
     MaterialRefreshLayout refreshMsg;
     Unbinder unbinder;
     private ArrayList<MSGBean> msgBeans;
+    private MainActivity activity;
+    private TextSwitcher textswitcher;
+    private int prePosition = -1;
 
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.fragment_msg, null);
         unbinder = ButterKnife.bind(this, view);
-        MainActivity activity = (MainActivity) getActivity();
+        activity = (MainActivity) getActivity();
+        textswitcher = activity.getTextswitcher();
+
         activity.getTvTitlebar().setText("杂志");
         activity.getBackTitlebar().setVisibility(View.GONE);
         activity.getSearchTitlebar().setVisibility(View.GONE);
+        textswitcher.setVisibility(View.VISIBLE);
+        textswitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView textView = new TextView(context);
+                textView.setTextColor(Color.BLUE);
+                textView.setText("测试");
+                return textView;
+            }
+        });
+        textswitcher.setText("今天");
         return view;
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        MainActivity activity = (MainActivity) getActivity();
         activity.getTvTitlebar().setText("杂志");
         activity.getBackTitlebar().setVisibility(View.GONE);
         activity.getSearchTitlebar().setVisibility(View.GONE);
         activity.getShopcarTitlebar().setVisibility(View.GONE);
         activity.getMenuTitlebar().setVisibility(View.GONE);
+        textswitcher.setVisibility(View.VISIBLE);
+        textswitcher.setText("今天");
     }
 
     @Override
@@ -111,18 +132,29 @@ public class MsgFragment extends BaseFragment {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        MSGBean msgBean = JSON.parseObject(s, MSGBean.class);
-//
-//        String monthInfo = msgBean.getMonthInfo();
-//
-//        int size = msgBean.getData().getItems().getKeys().size();
-//        List<MSGBean.DataBean.ItemsBean.InfosBean> infos = new ArrayList<>();
-////        for (int i = 0; i < size; i++) {
-////            infos.add(msgBean.getData().getItems().getInfos().get(i));
-////        }
-//        Log.e("TAG", "infos.len==" + infos.size());
         MsgRecycleAdapter adapter = new MsgRecycleAdapter(context, msgBeans);
-        Log.e("TAG", "msgBeans==" + msgBeans.size());
+        //监听recycleview状态改变，从而改变textSwicher
+
+        recycleMsg.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                RecyclerView.LayoutManager manager = recycleMsg.getLayoutManager();
+                if (manager instanceof LinearLayoutManager) {
+                    LinearLayoutManager mLinearManager = (LinearLayoutManager) manager;
+                    //获取最后一个可见view的位置
+                    int lastItemPosition = mLinearManager.findLastVisibleItemPosition();
+                    //获取第一个可见view的位置
+                    int firstItemPosition = mLinearManager.findFirstVisibleItemPosition();
+                    if (firstItemPosition == 0 && firstItemPosition != prePosition && prePosition != -1) {
+                        textswitcher.setText("今天");
+                    } else if (firstItemPosition != prePosition) {
+                        textswitcher.setText(msgBeans.get(firstItemPosition).getMonthInfo());
+                    }
+                    prePosition = firstItemPosition;
+                }
+            }
+        });
         recycleMsg.setAdapter(adapter);
         recycleMsg.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
     }

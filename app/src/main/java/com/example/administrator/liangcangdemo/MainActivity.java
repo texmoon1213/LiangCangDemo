@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     TextView tvTitlebar;
     @BindView(R.id.shopcar_titlebar)
     ImageView shopcarTitlebar;
+    @BindView(R.id.textswitcher)
+    TextSwitcher textswitcher;
 
     public ImageView getShopcarTitlebar() {
         return shopcarTitlebar;
@@ -59,6 +62,10 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rb3Main;
     @BindView(R.id.menu_titlebar)
     ImageView menuTitlebar;
+
+    public TextSwitcher getTextswitcher() {
+        return textswitcher;
+    }
 
     public TextView getTvTitlebar() {
         return tvTitlebar;
