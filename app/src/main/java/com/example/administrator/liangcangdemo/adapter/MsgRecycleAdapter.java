@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.administrator.liangcangdemo.R;
-import com.example.administrator.liangcangdemo.bean.MsgBean;
+import com.example.administrator.liangcangdemo.bean.MSGBean;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
 public class MsgRecycleAdapter extends RecyclerView.Adapter {
 
 
-    private List<MsgBean.DataBean.ItemsBean.InfosBean> datas;
+    private ArrayList<MSGBean> datas;
     private Context context;
 
-    public MsgRecycleAdapter(Context context, List<MsgBean.DataBean.ItemsBean.InfosBean> listBeen) {
+    public MsgRecycleAdapter(Context context, ArrayList<MSGBean> listBeen) {
         this.context = context;
         this.datas = listBeen;
     }
@@ -71,8 +71,8 @@ public class MsgRecycleAdapter extends RecyclerView.Adapter {
             ButterKnife.bind(this, inflate);
         }
 
-        public void setData(final MsgBean.DataBean.ItemsBean.InfosBean listBean) {
-            Glide.with(context).load(listBean.getCover_img_new()).crossFade().into(ivShopSpecialItem);
+        public void setData(final MSGBean listBean) {
+            Glide.with(context).load(listBean.getCover_img()).crossFade().into(ivShopSpecialItem);
             tvShopSpecialItem.setText(listBean.getTopic_name());
         }
     }

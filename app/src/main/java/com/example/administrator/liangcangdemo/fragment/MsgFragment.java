@@ -5,18 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
-import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
 import com.example.administrator.liangcangdemo.MainActivity;
 import com.example.administrator.liangcangdemo.R;
 import com.example.administrator.liangcangdemo.adapter.MsgRecycleAdapter;
 import com.example.administrator.liangcangdemo.base.BaseFragment;
-import com.example.administrator.liangcangdemo.bean.MsgBean;
+import com.example.administrator.liangcangdemo.bean.MSGBean;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +36,7 @@ public class MsgFragment extends BaseFragment {
     @BindView(R.id.refresh_msg)
     MaterialRefreshLayout refreshMsg;
     Unbinder unbinder;
+    private ArrayList<MSGBean> msgBeans;
 
     @Override
     public View initView() {
@@ -45,7 +48,6 @@ public class MsgFragment extends BaseFragment {
         activity.getSearchTitlebar().setVisibility(View.GONE);
         return view;
     }
-
 
     @Override
     public void onHiddenChanged(boolean hidden) {
@@ -83,17 +85,44 @@ public class MsgFragment extends BaseFragment {
     }
 
     private void process(String s) {
-        MsgBean msgBean = JSON.parseObject(s, MsgBean.class);
-        Log.e("TAG", "msgBean==getKeys()==" + msgBean.getData().getItems().getKeys().size());
-        Log.e("TAG", "msgBean==getInfos()==" + msgBean.getData().getItems().getInfos().size());
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONObject datas = jsonObject.optJSONObject("data");
+            JSONObject items = datas.optJSONObject("items");
+            JSONArray keys = items.optJSONArray("keys");
+            JSONObject infos = items.optJSONObject("infos");
+            msgBeans = new ArrayList<>();
 
-        int size = msgBean.getData().getItems().getKeys().size();
-        List<MsgBean.DataBean.ItemsBean.InfosBean> infos = new ArrayList<>();
-//        for (int i = 0; i < size; i++) {
-//            infos.add(msgBean.getData().getItems().getInfos().get(i));
-//        }
-        Log.e("TAG", "infos.len==" + infos.size());
-        MsgRecycleAdapter adapter = new MsgRecycleAdapter(context, infos);
+            for (int i = 0; i < keys.length(); i++) {
+                JSONArray monthInfos = infos.getJSONArray(keys.get(i) + "");
+
+                for (int j = 0; j < monthInfos.length(); j++) {
+                    MSGBean msgBean = new MSGBean();
+                    JSONObject objMGZ = monthInfos.getJSONObject(j);
+                    msgBean.setAuthor_id(objMGZ.optString("monthInfos"));
+                    msgBean.setTopic_name(objMGZ.optString("topic_name"));
+                    msgBean.setTopic_url(objMGZ.optString("topic_url"));
+                    msgBean.setCat_name(objMGZ.optString("cat_name"));
+                    msgBean.setCover_img(objMGZ.optString("cover_img"));
+                    msgBean.setMonthInfo(keys.get(i) + "");
+                    msgBeans.add(msgBean);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        MSGBean msgBean = JSON.parseObject(s, MSGBean.class);
+//
+//        String monthInfo = msgBean.getMonthInfo();
+//
+//        int size = msgBean.getData().getItems().getKeys().size();
+//        List<MSGBean.DataBean.ItemsBean.InfosBean> infos = new ArrayList<>();
+////        for (int i = 0; i < size; i++) {
+////            infos.add(msgBean.getData().getItems().getInfos().get(i));
+////        }
+//        Log.e("TAG", "infos.len==" + infos.size());
+        MsgRecycleAdapter adapter = new MsgRecycleAdapter(context, msgBeans);
+        Log.e("TAG", "msgBeans==" + msgBeans.size());
         recycleMsg.setAdapter(adapter);
         recycleMsg.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
     }
