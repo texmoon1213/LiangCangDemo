@@ -1,17 +1,14 @@
 package com.example.administrator.liangcangdemo.Activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.cjj.MaterialRefreshLayout;
@@ -81,14 +78,14 @@ public class DarenDetailActivity extends AppCompatActivity {
                 .execute(new StringCallback() {
                     @Override
                     public void onSuccess(String s, Call call, Response response) {
-                        Log.e("TAG", "达人详情页联网成功" + s);
+                        Log.e("TAG", "DarenDetailActivity联网成功" + s);
                         progress(s);
                     }
 
                     @Override
                     public void onError(Call call, Response response, Exception e) {
                         super.onError(call, response, e);
-                        Log.e("TAG", "达人详情页联网失败" + e.getMessage());
+                        Log.e("TAG", "DarenDetailActivity联网失败" + e.getMessage());
                     }
                 });
     }
@@ -108,17 +105,15 @@ public class DarenDetailActivity extends AppCompatActivity {
 //        rbGuanzhu.setText("关注\n" + items.getFollowing_count());
 //        rbRecommend.setText("推荐\n" + items.getRecommendation_count());
 //        rbRecommend.setBackgroundResource(R.color.text_qianhui);
-        adapter = new DarenDetailRecycleAdapter(DarenDetailActivity.this, items.getUser_id());
+        adapter = new DarenDetailRecycleAdapter(DarenDetailActivity.this, items.getUser_id());//items.getUser_id()
         recycleDarenDetail.setAdapter(adapter);
         //第一次进来加载的页面和数据。
-        adapter.refresh(ConstantUtils.DAREN_DETAIL_RECOMMEND, DarenDetailRecycleAdapter.RECOMMEND);
+
         recycleDarenDetail.setLayoutManager(new GridLayoutManager(DarenDetailActivity.this, 2, LinearLayoutManager.VERTICAL, false));
         adapter.addHeaderView(View.inflate(DarenDetailActivity.this, R.layout.daren_head_detail, null));
 //        adapter.setOnItemClickListener(new DarenDetailListener());
-
+        adapter.refresh(ConstantUtils.DAREN_DETAIL_RECOMMEND, DarenDetailRecycleAdapter.RECOMMEND);
     }
-
-
 //    @OnClick({R.id.rb_like, R.id.rb_recommend, R.id.rb_guanzhu, R.id.rb_fensi})
 //    public void onViewClicked(View view) {
 //        switch (view.getId()) {
@@ -169,17 +164,17 @@ public class DarenDetailActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private class DarenDetailListener implements DarenDetailRecycleAdapter.ItemClickListener {
-        @Override
-        public void OnItemClick(View v, int position, String nextUrl, String nextName) {
-            if (TextUtils.isEmpty(nextUrl)) {
-                Toast.makeText(DarenDetailActivity.this, "這不是咱家的哦", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            Intent initent = new Intent(DarenDetailActivity.this, DarenDetailActivity.class);
-            initent.putExtra("daren_userId", nextUrl);
-            initent.putExtra("daren_userName", nextName);
-            startActivity(initent);
-        }
-    }
+//    private class DarenDetailListener implements DarenDetailRecycleAdapter.ItemClickListener {
+//        @Override
+//        public void OnItemClick(View v, int position, String nextUrl, String nextName) {
+//            if (TextUtils.isEmpty(nextUrl)) {
+//                Toast.makeText(DarenDetailActivity.this, "這不是咱家的哦", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            Intent initent = new Intent(DarenDetailActivity.this, DarenDetailActivity.class);
+//            initent.putExtra("daren_userId", nextUrl);
+//            initent.putExtra("daren_userName", nextName);
+//            startActivity(initent);
+//        }
+//    }
 }

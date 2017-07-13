@@ -3,7 +3,6 @@ package com.example.administrator.liangcangdemo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -62,6 +61,9 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
     private int TYPE_FOOTER = 1002;
     private RecyclerView mRecyclerView;
     private DarenRecommendBean.DataBean.ItemsBean titlebarDatas;
+    private boolean isFirst;
+    private RecyclerView.LayoutManager layoutManager;
+    private boolean beforeFresh;
 
 
     public DarenDetailRecycleAdapter(Context c, String userId) {
@@ -108,9 +110,9 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
             List<DarenRecommendBean.DataBean.ItemsBean.GoodsBean> goods = darenRecommendBean.getData().getItems().getGoods();
             datas = goods;
         }
+
         ifGridLayoutManager();//这里不加的话，点击后就会只占一个格子
         notifyDataSetChanged();
-        mRecyclerView.setAdapter(this);
 //        notifyItemRangeChanged(4, datas.size());
     }
 
@@ -155,11 +157,9 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
     }
 
     private void ifGridLayoutManager() {
-        Log.e("TAG", " ifGridLayoutManager()==+mRecyclerView == null" + (mRecyclerView == null));
         if (mRecyclerView == null) return;
-        final RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
+        layoutManager = mRecyclerView.getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
-            Log.e("TAG", "if (layoutManager instanceof GridLayoutManager) {");
             final GridLayoutManager.SpanSizeLookup originalSpanSizeLookup = ((GridLayoutManager) layoutManager).getSpanSizeLookup();
 //            originalSpanSizeLookup.getSpanIndex()
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -210,7 +210,20 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        if (datas == null) {
+//        if (datas == null) {
+//            return;
+//        }
+
+        /**
+         *   这里添加的一个字段用来判断是不是在刷新之前。因为刷新数据之前，已经设置了一次适配器，但此时适配器没有数据，
+         *   所以需要return,不然会空指针。
+         *   上面用了datas来判断，这样可以阻止空指针。不过也会导致，如果跳转的下一个用户，推荐里面没有数据。那么依然会阻塞。
+         *   导致头部的数据都无法set进去
+         *
+         */
+
+        if (!beforeFresh) {
+            beforeFresh = true;
             return;
         }
         if (getItemViewType(position) == LIKE) {
@@ -242,8 +255,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (mItemClickListener != null) {
-                        String nextUrl = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_id();
-                        String nextName = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_name();
+                        String nextUrl = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position - 1)).getUser_id();
+                        String nextName = ((DarenGuanZhuBean.DataBean.ItemsBean.UsersBean) datas.get(position - 1)).getUser_name();
                         mItemClickListener.OnItemClick(v, position, nextUrl, nextName);
                     }
                 }
@@ -255,8 +268,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (mItemClickListener != null) {
-                        String nextUrl = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_id();
-                        String nextName = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position)).getUser_name();
+                        String nextUrl = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position - 1)).getUser_id();
+                        String nextName = ((DarenFensiBean.DataBean.ItemsBean.UsersBean) datas.get(position - 1)).getUser_name();
                         mItemClickListener.OnItemClick(v, position, nextUrl, nextName);
                     }
                 }
@@ -422,22 +435,24 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
 //        }
 
         private void setData(DarenRecommendBean.DataBean.ItemsBean items) {
-            Glide.with(context).load(items.getUser_image().getOrig()).crossFade().into(ivHead);
-            tvUsernameDarenDetail.setText(items.getUser_name());
-            tvDutyDarenDetail.setText(items.getUser_desc());
-            rbLike.setText("喜欢\n" + items.getLike_count());
-            rbFensi.setText("粉丝\n" + items.getFollowed_count());
-            rbGuanzhu.setText("关注\n" + items.getFollowing_count());
-            rbRecommend.setText("推荐\n" + items.getRecommendation_count());
-            rbRecommend.setBackgroundResource(R.color.text_qianhui);
+            if (!isFirst) {
+                Glide.with(context).load(items.getUser_image().getOrig()).crossFade().into(ivHead);
+                tvUsernameDarenDetail.setText(items.getUser_name());
+                tvDutyDarenDetail.setText(items.getUser_desc());
+                rbLike.setText("喜欢\n" + items.getLike_count());
+                rbFensi.setText("粉丝\n" + items.getFollowed_count());
+                rbGuanzhu.setText("关注\n" + items.getFollowing_count());
+                rbRecommend.setText("推荐\n" + items.getRecommendation_count());
+                rbRecommend.setBackgroundResource(R.color.text_qianhui);
 //            adapter = new DarenDetailRecycleAdapter(context, items.getUser_id());
 //            recycleDarenDetail.setAdapter(adapter);
 //            notifyDataSetChanged();
 //            refresh(ConstantUtils.DAREN_DETAIL_RECOMMEND, DarenDetailRecycleAdapter.RECOMMEND);
 //            mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
 //            adapter.addHeaderView(View.inflate(DarenDetailActivity.this, R.layout.daren_head_detail, null));
-            setOnItemClickListener(new DarenDetailListener());
-
+                setOnItemClickListener(new DarenDetailListener());
+                isFirst = true;
+            }
         }
 
 
@@ -454,7 +469,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                         datas.clear();//清空數據
                     }
                     refresh(ConstantUtils.DAREN_DETAIL_LIKE, DarenDetailRecycleAdapter.LIKE);
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
+                    ((GridLayoutManager) layoutManager).setSpanCount(2);
+//                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
                     break;
                 case R.id.rb_recommend:
                     Log.e("TAG", "推荐-------------------》");
@@ -466,7 +482,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                         datas.clear();//清空數據
                     }
                     refresh(ConstantUtils.DAREN_DETAIL_RECOMMEND, DarenDetailRecycleAdapter.RECOMMEND);
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
+                    ((GridLayoutManager) layoutManager).setSpanCount(2);
+//                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false));
                     break;
                 case R.id.rb_guanzhu:
                     Log.e("TAG", "关注-------------------》");
@@ -478,7 +495,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                         datas.clear();//清空數據
                     }
                     refresh(ConstantUtils.DAREN_DETAIL_GUANZHU, DarenDetailRecycleAdapter.GUANZHU);
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
+                    ((GridLayoutManager) layoutManager).setSpanCount(3);
+//                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
                     break;
                 case R.id.rb_fensi:
                     Log.e("TAG", "粉丝-------------------》");
@@ -490,7 +508,8 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                         datas.clear();//清空數據
                     }
                     refresh(ConstantUtils.DAREN_DETAIL_FOLLOW, DarenDetailRecycleAdapter.FENSI);
-                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
+                    ((GridLayoutManager) layoutManager).setSpanCount(3);
+//                    mRecyclerView.setLayoutManager(new GridLayoutManager(context, 3, LinearLayoutManager.VERTICAL, false));
                     break;
             }
         }
@@ -502,6 +521,7 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
                     Toast.makeText(context, "這不是咱家的哦", Toast.LENGTH_SHORT).show();
                     return;
                 }
+//                isFirst = false;
                 Intent initent = new Intent(context, DarenDetailActivity.class);
                 initent.putExtra("daren_userId", nextUrl);
                 initent.putExtra("daren_userName", nextName);
