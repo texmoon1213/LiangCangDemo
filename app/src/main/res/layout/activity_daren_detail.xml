@@ -11,92 +11,10 @@
         android:id="@+id/title_daten_detail"
         layout="@layout/title_bar" />
 
-    <ImageView
-        android:id="@+id/iv_head"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/title_daten_detail"
-        android:layout_margin="15dp"
-        android:src="@drawable/lc_error" />
-
-    <TextView
-        android:id="@+id/tv_username_daren_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/iv_head"
-        android:layout_toRightOf="@id/iv_head"
-        android:text="tv_username_daren_detail"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tv_duty_daren_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_username_daren_detail"
-        android:layout_toRightOf="@id/iv_head"
-        android:text="tv_username_daren_detail"
-        android:textColor="@color/colorWhite"
-        android:textSize="14sp" />
-
-    <TextView
-        android:id="@+id/tv_sixin_daren_detail"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@id/iv_head"
-        android:layout_alignParentRight="true"
-        android:layout_margin="5dp"
-        android:background="@color/zhuti_huise"
-        android:gravity="center"
-        android:text="私信"
-        android:textColor="@color/colorWhite" />
-
-    <TextView
-        android:id="@+id/tv_guanzhu_daren_detail"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-        android:layout_alignBottom="@id/iv_head"
-        android:layout_margin="5dp"
-        android:layout_toLeftOf="@id/tv_sixin_daren_detail"
-        android:background="@color/zhuti_huise"
-        android:gravity="center"
-        android:text="关注"
-        android:textColor="@color/colorWhite" />
-
-    <RadioGroup
-        android:id="@+id/rg_daren_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/iv_head"
-        android:background="@color/zhuti_huise"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_like"
-            style="@style/rb_daren_detail"
-            android:text="喜欢" />
-
-        <RadioButton
-            android:id="@+id/rb_recommend"
-            style="@style/rb_daren_detail"
-            android:text="推荐" />
-
-        <RadioButton
-            android:id="@+id/rb_guanzhu"
-            style="@style/rb_daren_detail"
-            android:text="关注" />
-
-        <RadioButton
-            android:id="@+id/rb_fensi"
-            style="@style/rb_daren_detail"
-            android:text="粉丝" />
-    </RadioGroup>
-
     <com.cjj.MaterialRefreshLayout
         android:id="@+id/refresh_daren_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/rg_daren_detail"
         app:isLoadMore="true">
 
         <android.support.v7.widget.RecyclerView
