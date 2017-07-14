@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
-        android:id="@+id/tablaout_fragment1"
+        android:id="@+id/tablaout_sharefragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1c1c1c"
@@ -15,7 +15,7 @@
 
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_fragment1"
+        android:id="@+id/vp_sharefragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 </LinearLayout>

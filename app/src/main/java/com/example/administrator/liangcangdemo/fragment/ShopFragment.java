@@ -3,7 +3,6 @@ package com.example.administrator.liangcangdemo.fragment;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.View;
 
 import com.example.administrator.liangcangdemo.MainActivity;
@@ -39,12 +38,13 @@ public class ShopFragment extends BaseFragment {
 
         ShopViewPagerAdapter adapter = new ShopViewPagerAdapter(mainActivity.getSupportFragmentManager(), fragments);
         vpFragment1.setAdapter(adapter);
+//        tablaoutFragment1.setTabGravity(Gravity.FILL);
+//        tablaoutFragment1.setTabMode(TabLayout.MODE_SCROLLABLE);//可以滚动
+//        tablaoutFragment1.setTabMode(TabLayout.MODE_FIXED);
         tablaoutFragment1.setSelectedTabIndicatorColor(Color.WHITE);//下划线
         tablaoutFragment1.setTabTextColors(Color.GRAY, Color.WHITE);//默认颜色和选中颜色
 //        tablayout.setTextDirection(); //没整出来
-        tablaoutFragment1.setTabGravity(Gravity.FILL);
-//        tablaoutFragment1.setTabMode(TabLayout.MODE_SCROLLABLE);//可以滚动
-        tablaoutFragment1.setTabMode(TabLayout.MODE_FIXED);
+
         tablaoutFragment1.setupWithViewPager(vpFragment1);          //tablayout设置相关参数，最主要是关联viewpager
 
         return view;
