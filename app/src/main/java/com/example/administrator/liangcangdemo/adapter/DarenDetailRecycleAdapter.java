@@ -55,7 +55,6 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
 
     private View VIEW_FOOTER;
     private View VIEW_HEADER;
-
     //Type
     private static final int TYPE_HEADER = 1001;
     private int TYPE_FOOTER = 1002;
@@ -64,7 +63,6 @@ public class DarenDetailRecycleAdapter<T> extends RecyclerView.Adapter {
     private boolean isFirst;
     private RecyclerView.LayoutManager layoutManager;
     private boolean beforeFresh;
-
 
     public DarenDetailRecycleAdapter(Context c, String userId) {
         this.context = c;

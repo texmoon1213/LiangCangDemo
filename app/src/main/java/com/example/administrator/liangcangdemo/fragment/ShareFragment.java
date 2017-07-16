@@ -52,6 +52,29 @@ public class ShareFragment extends BaseFragment {
         fragments.add(new BSSatinFragment());
     }
 
+    @Override
+    public void initData() {
+        super.initData();
+        switchFragment();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("分享");
+    }
+
+    private void switchFragment() {
+        vpSharefragment.setCurrentItem(0);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        MainActivity activity = (MainActivity) getActivity();
+        activity.getTvTitlebar().setText("分享");
+        activity.getBackTitlebar().setVisibility(View.GONE);
+        activity.getSearchTitlebar().setVisibility(View.VISIBLE);
+        activity.getShopcarTitlebar().setVisibility(View.VISIBLE);
+        activity.getMenuTitlebar().setVisibility(View.GONE);
+        activity.getTextswitcher().setVisibility(View.GONE);
+    }
 
     @Override
     public void onDestroyView() {

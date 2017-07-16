@@ -43,4 +43,8 @@ public class ConstantUtils {
     public static final String DAREN_DETAIL_RECOMMEND = "http://mobile.iliangcang.com/user/masterListInfo?app_key=Android&count=10&page=1&sig=BF287AF953103F390674E73DDA18CFD8%7C639843030233268&v=1.0";
     //关注&owner_id=121530857
     public static final String DAREN_DETAIL_GUANZHU = "http://mobile.iliangcang.com/user/masterFollow?app_key=Android&count=12&page=1&sig=BF287AF953103F390674E73DDA18CFD8|639843030233268&v=1.0";
+    /**
+     * 百思不得姐 推荐
+     */
+    public static final String BS_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.6/0-20.json";
 }

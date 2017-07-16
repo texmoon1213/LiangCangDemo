@@ -27,6 +27,7 @@
         <activity android:name=".Activity.HomeWebviewActivity" />
         <activity android:name=".Activity.BrandDetailActivity" />
         <activity android:name=".Activity.DarenDetailActivity" />
+        <activity android:name=".Activity.ShowImageAndGifActivity"></activity>
     </application>
 
 </manifest>
