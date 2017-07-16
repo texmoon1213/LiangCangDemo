@@ -47,4 +47,8 @@ public class ConstantUtils {
      * 百思不得姐 推荐
      */
     public static final String BS_RECOMMEND = "http://s.budejie.com/topic/list/jingxuan/1/budejie-android-6.6.6/0-20.json";
+    /**
+     * 百思 段子
+     */
+    public static final String BS_SATIN = "http://s.budejie.com/topic/tag-topic/64/hot/budejie-android-6.6.6/0-20.json";
 }

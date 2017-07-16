@@ -63,16 +63,17 @@ public class BSRecommendRecycleAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (getItemViewType(position) == TYPE_VIDEO) {
+        int itemViewType = getItemViewType(position);
+        if (itemViewType == TYPE_VIDEO) {
             VideoHoder videoHoder = (VideoHoder) holder;
             videoHoder.setData(datas.get(position));
-        } else if (getItemViewType(position) == TYPE_TEXT) {
+        } else if (itemViewType == TYPE_TEXT) {
             TextHoder textHolder = (TextHoder) holder;
             textHolder.setData(datas.get(position));
-        } else if (getItemViewType(position) == TYPE_IMAGE) {
+        } else if (itemViewType == TYPE_IMAGE) {
             ImageHoder imageHolder = (ImageHoder) holder;
             imageHolder.setData(datas.get(position));
-        } else if (getItemViewType(position) == TYPE_GIF) {
+        } else if (itemViewType == TYPE_GIF) {
             GifHoder gifHolder = (GifHoder) holder;
             gifHolder.setData(datas.get(position));
         }
