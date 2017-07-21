@@ -1,6 +1,7 @@
 package com.example.administrator.liangcangdemo.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -34,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Response;
 
@@ -75,6 +77,10 @@ public class TypeDetialActivity extends AppCompatActivity {
     RadioGroup rgDetail;
     @BindView(R.id.ll_detail_right)
     LinearLayout llDetailRight;
+    @BindView(R.id.tv_shopcar_typedetail)
+    TextView tvShopcarTypedetail;
+    @BindView(R.id.tv_buy_typedetail)
+    TextView tvBuyTypedetail;
     private String detailUrl;
     private ShopDetailBean.DataBean.ItemsBean items;
     private String goods_id;
@@ -218,5 +224,19 @@ public class TypeDetialActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @OnClick({R.id.tv_shopcar_typedetail, R.id.tv_buy_typedetail})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_shopcar_typedetail:
+                Intent intent = new Intent(this, ShopCarActivity.class);
+                intent.putExtra("shopcar", items);
+                startActivity(intent);
+                break;
+            case R.id.tv_buy_typedetail:
+
+                break;
+        }
     }
 }
